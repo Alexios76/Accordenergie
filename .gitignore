@@ -1,0 +1,8 @@
+/mysql
+/app/var/*
+!/app/var
+!/app/var/.gitkeep
+/app/var/cache/*
+!/app/var/cache
+!/app/var/cache/.gitkeep
+/app/vendor

@@ -1,0 +1,61 @@
+{% extends "base_auth.html" %}
+
+{% block body %}
+
+<h1>Inscription</h1>
+
+<a href="index.php">Déjà un compte ?</a>
+
+<form action="" method="post">
+
+    <div>
+        <label for="email">Email</label>
+        <input 
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Entrez votre mail"
+            required="required">
+    </div>
+
+
+    <div>
+        <label for="email-cfg">Email</label>
+        <input 
+            type="email-cfg"
+            id="email-cfg"
+            name="email-cfg"
+            placeholder="Confirmez votre mail"
+            required="required">
+    </div>
+
+    <div>
+        <label for="password">Password :</label>
+        <input 
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Entrez votre password"
+            required="required">
+    </div>
+
+
+    <div>
+        <label for="password-cfg">Password confirmation</label>
+        <input 
+            type="password"
+            id="password-cfg"
+            name="password-cfg"
+            placeholder="Confirmez votre password"
+            required="required">
+    </div>
+
+
+    <div>
+        <input type="submit" name="send" ²value="Créer">
+    </div>
+
+</form>
+
+
+{% endblock %}
