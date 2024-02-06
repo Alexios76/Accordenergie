@@ -6,3 +6,5 @@
 !/app/var/cache
 !/app/var/cache/.gitkeep
 /app/vendor
+/.venv/
+.idea
