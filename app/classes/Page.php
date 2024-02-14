@@ -15,7 +15,7 @@ class Page
         $this->session = new Session();
         
         try {
-            $this->pdo = new \PDO('mysql:host=mysql;dbname=b2-paris', "root", "");
+            $this->pdo = new \PDO('mysql:host=mysql;dbname=accordenergie', "root", "");
         } catch (\PDOException $e) {
             var_dump($e->getMessage());
             die();
@@ -30,7 +30,7 @@ class Page
 
     public function insert(string $table_name, array $data)
     {
-        $sql = " INSERT INTO " . $table_name . " (email, password) VALUES (:email, :password)";
+        $sql = " INSERT INTO " . $table_name . " (email, MotDePass) VALUES (:email, :MotDePass)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
     }
@@ -41,7 +41,7 @@ class Page
     }
 
     public function getUserByEmail(array $data){
-        $sql = "SELECT * FROM users WHERE email = :email";
+        $sql = "SELECT * FROM utilisateur WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
         return $stmt->fetch(\PDO::FETCH_ASSOC);

@@ -8,9 +8,9 @@
 
     if(isset($_POST['send'])){
         
-        $page->insert('users', [
+        $page->insert('utilisateur', [
             'email'     => $_POST['email'],
-            'password'  => password_hash($_POST['password'], PASSWORD_DEFAULT)]);
+            'MotDePass'  => password_hash($_POST['MotDePass'], PASSWORD_DEFAULT)]);
 
             header('Location: index.php');
     }

@@ -25,6 +25,7 @@
                 $msg = "Email ou mot de passer incorrect !";
             } else{
                 //var_dump('compte ok !');
+                header("Location: accueil.php");
             }
        }
     }
