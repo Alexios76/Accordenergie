@@ -12,19 +12,20 @@
 
     if(isset($_POST['send'])){
        //var_dump($_POST); //permet d'afficher les valeurs rentré, utile pour vérifier
-       $user = $page->getUserByEmail([
+       
+       $_SESSION = $page->getUserByEmail([
             'email' => $_POST['email']
        ]);
        //var_dump($user);
 
-       if(!$user){
+       if(!$_SESSION){
         $msg = "Email ou mot de passe incorrect";
        }else {
-            if(!password_verify($_POST['password'], $user['password']))
+            if(!password_verify($_POST['password'], $_SESSION['password']))
             {
-                $msg = "Email ou mot de passer incorrect !";
+                $msg = "Email ou mot de passe incorrect !";
             } else{
-                //var_dump('compte ok !');
+                
                 header("Location: accueil.php");
             }
        }

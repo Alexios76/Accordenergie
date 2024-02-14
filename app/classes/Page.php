@@ -7,7 +7,7 @@ class Page
 {
     private \Twig\Environment $twig;
     private $pdo;
-    public $session;
+    public Session $session;
 
     function __construct()
     {
