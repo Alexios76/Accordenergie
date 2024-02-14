@@ -30,7 +30,8 @@ class Page
 
     public function insert(string $table_name, array $data)
     {
-        $sql = " INSERT INTO " . $table_name . " (email, MotDePass) VALUES (:email, :MotDePass)";
+        $sql = " INSERT INTO " . $table_name . " (email, password, name, surname, phone_number) 
+                                                VALUES (:email, :password, :name, :surname, :phone_number)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
     }
