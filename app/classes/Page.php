@@ -42,7 +42,7 @@ class Page
     }
 
     public function getUserByEmail(array $data){
-        $sql = "SELECT * FROM utilisateur WHERE email = :email";
+        $sql = "SELECT * FROM user WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
