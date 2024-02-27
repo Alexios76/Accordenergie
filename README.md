@@ -4,6 +4,6 @@ Projet Dev Web
 Groupe:
 Gabriel BROUSSE
 Martin CHARPENTIER
-Tonny BASSIL
+Tony BASSIL
 
 Il faut importer le fichier accordenergie.sql dans phpMyAdmin
