@@ -8,53 +8,50 @@ DROP TABLE IF EXISTS intervention ;
 
 -- set session sql_mode = 'ONLY_FULL_GROUP_BY';
 
-CREATE TABLE utilisateur (
-  `UtilisateurID` int NOT NULL PRIMARY KEY,
-  `Nom` varchar(255) NOT NULL,
-  `Prenom` varchar(255) NOT NULL,
-  `MotDePass` varchar(255) NOT NULL,
-  `Email` varchar(255) NOT NULL,
-  `NumeroDeTelephone` varchar(15) NOT NULL,
-  `TypeUtilisateur` varchar(20) NOT NULL,
-  `Created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE user (
+  `user_id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `user_type` varchar(20),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) engine=InnoDB DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE statut (
-  `StatutID` int NOT NULL PRIMARY KEY,
-  `Type` varchar(50) NOT NULL,
-  `Couleur` varchar(15) NOT NULL
+  `status_id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `type` varchar(50) NOT NULL,
+  `color` varchar(15) NOT NULL
 ) engine=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE degreurgence (
-  `DegreUrgenceID` int NOT NULL PRIMARY KEY,
-  `Type` varchar(50) NOT NULL,
-  `Couleur` varchar(15) NOT NULL
+  `degre_urgence_id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `type` varchar(50) NOT NULL,
+  `couleur` varchar(15) NOT NULL
 ) engine=InnoDB DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE intervention (
-  `InterventionID` int NOT NULL PRIMARY KEY,
-  `DateIntervention` date NOT NULL,
-  `NatureIntervention` varchar(255) NOT NULL,
-  `Description` text NOT NULL,
-  `NumeroEtRue` varchar(100) NOT NULL,
-  `ComplementAdresse` varchar(100) NOT NULL,
-  `CodePostal` varchar(100) NOT NULL,
-  `Ville` varchar(100) NOT NULL,
-  `Societe` varchar(100),
-  `DegreUrgenceID` int,
-  `StatutID` int,
-  `UtilisateurID` int,
-  `StandardisteID` int,
-  `IntervenantID` int,
+  `intervention_id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `date_intervention` date NOT NULL,
+  `nature_intervention` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `street_and_number` varchar(100) NOT NULL,
+  `adress_complement` varchar(100) NOT NULL,
+  `code_postal` varchar(100) NOT NULL,
+  `ville` varchar(100) NOT NULL,
+  `societe` varchar(100),
+  `degre_urgence_id` int,
+  `status_id` int,
+  `user_id` int,
   
-   constraint FK1 foreign key (DegreUrgenceID) references degreurgence(DegreUrgenceID),
-   constraint FK2 foreign key (StatutID) references statut(StatutID),
-   constraint FK3 foreign key (UtilisateurID) references utilisateur(UtilisateurID),
-   constraint FK4 foreign key (StandardisteID) references utilisateur(UtilisateurID),
-   constraint FK5 foreign key (IntervenantID) references utilisateur(UtilisateurID)
+  
+   constraint FK1 foreign key (degre_urgence_id) references degreurgence(degre_urgence_id),
+   constraint FK2 foreign key (status_id) references statut(status_id),
+   constraint FK3 foreign key (user_id) references user(user_id)
    
    
 ) engine=InnoDB DEFAULT CHARSET=latin1;
