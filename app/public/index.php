@@ -24,8 +24,9 @@
             if(!password_verify($_POST['password'], $_SESSION['password']))
             {
                 $msg = "Email ou mot de passe incorrect !";
-            } else{
-                
+            } else if ($_SESSION['user_type'] == 'admin'){
+                header("Location: admin.php");
+            }else {
                 header("Location: accueil.php");
             }
        }
