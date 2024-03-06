@@ -1,0 +1,22 @@
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+            
+                <td>{{ user['user_id']}}</td>
+                <td>{{ user['email']}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

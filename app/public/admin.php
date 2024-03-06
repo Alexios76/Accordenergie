@@ -7,6 +7,6 @@
     $page = new Page();
 
 
-    echo $page->render('admin.html', []);
+    echo $page->render('admin.html.twig', []);
 
     
