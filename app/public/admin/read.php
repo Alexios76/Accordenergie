@@ -6,6 +6,7 @@ use App\Page;
 
 $page = new Page();
 
+
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
     $user_id = $_GET['id'];
@@ -29,3 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     echo "ID d'utilisateur non fourni";
     exit;
 }
+
+
+
+
+

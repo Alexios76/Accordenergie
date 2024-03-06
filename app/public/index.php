@@ -25,9 +25,14 @@
             {
                 $msg = "Email ou mot de passe incorrect !";
             }  else if ($_SESSION['user_type'] == 'admin'){
-                    header("Location: admin.php");
+                    header("Location: admin/users.php");
+            } else if ($_SESSION['user_type'] == 'client'){
+                header("Location: client.php");
+            } else if ($_SESSION['user_type'] == 'standardiste'){
+                header("Location: standardiste.php");
+            } else if ($_SESSION['user_type'] == 'intervenant'){
+                header("Location: intervenant.php");
             }
-            
             else{
                 
                 header("Location: accueil.php");
