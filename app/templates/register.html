@@ -1,0 +1,91 @@
+{% extends "base_auth.html" %}
+
+{% block body %}
+
+<h1>Inscription</h1>
+
+<a href="index.php">Déjà un compte ?</a>
+
+<form action="" method="post">
+
+    <div>
+        <label for="name">Nom:</label>
+        <input 
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Entrez votre nom"
+            required="required">
+    </div>
+
+    <div>
+        <label for="surname">Prénom :</label>
+        <input 
+            type="text"
+            id="surname"
+            name="surname"
+            placeholder="Entrez votre prénom"
+            required="required">
+    </div>
+
+    <div>
+        <label for="phone_number">Numéro de téléphone :</label><br>
+        <input 
+            type="text" 
+            id="phone_number" 
+            name="phone_number" 
+            placeholder="Entrez votre numéro de téléphone (10 chiffres)" 
+            required="required">
+    </div>
+
+    <div>
+        <label for="email">Email</label>
+        <input 
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Entrez votre mail"
+            required="required">
+    </div>
+
+
+    <div>
+        <label for="email-cfg">Email</label>
+        <input 
+            type="email-cfg"
+            id="email-cfg"
+            name="email-cfg"
+            placeholder="Confirmez votre mail"
+            required="required">
+    </div>
+
+    <div>
+        <label for="password">Password :</label>
+        <input 
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Entrez votre password"
+            required="required">
+    </div>
+
+
+    <div>
+        <label for="password-cfg">Password confirmation</label>
+        <input 
+            type="password"
+            id="password-cfg"
+            name="password-cfg"
+            placeholder="Confirmez votre password"
+            required="required">
+    </div>
+
+
+    <div>
+        <input type="submit" name="send" ²value="Créer">
+    </div>
+
+</form>
+
+
+{% endblock %}

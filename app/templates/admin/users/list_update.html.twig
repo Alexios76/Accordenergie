@@ -1,0 +1,35 @@
+{% extends 'base_auth.html' %}
+
+{% block body %}
+
+<form method="post" action="update.php">
+    <input type="hidden" name="user_id" value="{{ user['user_id'] }}">
+    <div class="form-group">
+        <label for="name">Nom:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ user['name'] }}">
+    </div>
+    <div class="form-group">
+        <label for="surname">Prénom:</label>
+        <input type="text" class="form-control" id="surname" name="surname" value="{{ user['surname'] }}">
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ user['email'] }}">
+    </div>
+    <div class="form-group">
+        <label for="phone_number">Numéro de téléphone:</label>
+        <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ user['phone_number'] }}">
+    </div>
+    <div class="form-group">
+        <label for="user_type">Type d'utilisateur:</label>
+        <select class="form-control" id="user_type" name="user_type">
+            <option value="standardiste" {% if user['user_type'] == 'standardiste' %} selected {% endif %}>Standardiste</option>
+            <option value="client" {% if user['user_type'] == 'client' %} selected {% endif %}>Client</option>
+            <option value="intervenant" {% if user['user_type'] == 'intervenant' %} selected {% endif %}>Intervenant</option>
+            <option value="admin" {% if user['user_type'] == 'admin' %} selected {% endif %}>Admin</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+</form>
+
+{% endblock %}
