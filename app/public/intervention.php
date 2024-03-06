@@ -7,7 +7,7 @@ use App\Page;
 $page = new Page();
 
 if ($_SESSION) {
-    echo $page->render('accueil.html.twig', []);
+    echo $page->render('intervention.html', []);
     
 }else{
     header("Location: index.php");

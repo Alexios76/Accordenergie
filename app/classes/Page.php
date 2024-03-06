@@ -12,18 +12,20 @@ class Page
     function __construct()
     {
 
+        $prefixe = str_contains(getcwd(), 'admin') ? "../" : "";
+
         $this->session = new Session();
-        
+
         try {
             $this->pdo = new \PDO('mysql:host=mysql;dbname=accordenergie', "root", "");
         } catch (\PDOException $e) {
             var_dump($e->getMessage());
             die();
         }
-
-        $loader = new \Twig\Loader\FilesystemLoader('../templates');
+        // $this->session = new Session();
+        $loader = new \Twig\Loader\FilesystemLoader($prefixe . '../templates');
         $this->twig = new \Twig\Environment($loader, [
-            'cache' => '../var/cache/compilation_cache',
+            'cache' => $prefixe . '../var/cache/compilation_cache',
             'debug' => true
         ]);
     }
@@ -36,18 +38,25 @@ class Page
         $stmt->execute($data);
     }
 
-    public function render(string $name, array $data) :string
+    public function render(string $name, array $data): string
     {
         return $this->twig->render($name, $data);
     }
 
-    public function getUserByEmail(array $data){
+    public function getUserByEmail(array $data)
+    {
         $sql = "SELECT * FROM user WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    
-
+    public function getAllUsers()
+    {
+        $sql = "SELECT * FROM user";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $users;
+    }
 }
