@@ -6,7 +6,7 @@ namespace App;
 class Page
 {
     private \Twig\Environment $twig;
-    private $pdo;
+    public $pdo;
     public Session $session;
 
     function __construct()

@@ -1,0 +1,29 @@
+{% extends "base_auth.html" %}
+
+{% block body %}
+<div id="container">
+    <div style="display: flex; justify-content: space-around; padding: 20px;">
+        <!-- Contact Form -->
+        <div style="width: 45%;">
+            <h2>Contact Us</h2>
+            <form action="send_contact.php" method="post">
+                <input type="text" name="name" placeholder="Your Name" required><br>
+                <input type="text" name="surname" placeholder="Your Surname" required><br>
+                <input type="tel" name="phone" placeholder="Phone Number" required><br>
+                <input type="email" name="email" placeholder="Email Address" required><br>
+                <textarea name="message" placeholder="Your Message" required></textarea><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        
+        <!-- Contact Information -->
+        <div style="width: 45%; text-align: right;">
+            <h2>Contact Information</h2>
+            <p>10 Rue Sextius Michel, 75015 Paris</p>
+            <p>01 02 03 04 05</p>
+            <p>8h00 - 12h00, 13h30 - 17h30</p>
+            <p>info.accordenergie@gmail.com</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
