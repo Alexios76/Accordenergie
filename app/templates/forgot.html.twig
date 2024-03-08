@@ -1,0 +1,39 @@
+{% extends "base_auth.html" %}
+
+
+{% block body%}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="styles/forgot.css">
+{% endblock %}
+
+<section class="gradient-form  orange-background">
+    <div class="container-fluid h-100 d-flex justify-content-center align-items-center">
+        <div class="card rounded-3 gradient-custom-2">
+            <div class="card-body p-md-5 mx-md-4">
+                <h1 class="text-center mb-5">Mot de passe oublié</h1>
+                {% if msg %}
+                    <div class="alert alert-info">{{ msg }}</div>
+                {% endif %}
+                <form action="" method="post">
+                    <div class="form-outline mb-4">
+                        <label for="email" class="form-label">Email :</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label for="new_password" class="form-label">Nouveau mot de passe :</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password" required>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label for="confirm_password" class="form-label">Confirmez le mot de passe :</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <div class="text-center pt-1 mb-5 pb-1">
+                        <button type="submit" name="send" class="btn btn-primary btn-block">Réinitialiser le mot de passe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

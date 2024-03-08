@@ -1,0 +1,45 @@
+
+
+.container-fluid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card {
+    background-color: white; /* arrière-plan de la carte en blanc */
+    border: none; /* supprime la bordure */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* ajout d'une ombre douce */
+}
+
+.btn-primary {
+    background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+    background: linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+    border: none; /* supprime la bordure */
+}
+
+.btn-primary:hover {
+    background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+    background: linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+}
+
+.orange-background {
+    background: linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+}
+
+
+  
+@media (min-width: 768px) {
+    .gradient-form {
+      height: 100vh !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .gradient-custom-2 {
+      border-top-right-radius: .3rem;
+      border-bottom-right-radius: .3rem;
+    }
+  }
+  

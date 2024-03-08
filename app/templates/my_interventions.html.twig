@@ -1,0 +1,39 @@
+{% extends "base_auth.html" %}
+
+{% block body %}
+<h1>My Interventions</h1>
+
+<!-- Interventions Table -->
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Nature</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Company</th>
+            <th>Urgency Degree</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for intervention in interventions %}
+        <tr>
+            <td>{{ intervention.date_intervention }}</td>
+            <td>{{ intervention.nature_intervention }}</td>
+            <td>{{ intervention.description }}</td>
+            <td>{{ intervention.street_and_number }} {{ intervention.adress_complement }}</td>
+            <td>{{ intervention.ville }}</td>
+            <td>{{ intervention.societe }}</td>
+            <td>{{ intervention.degre_urgence_id }}</td>
+            <td>{{ intervention.status_id }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="8">No interventions found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

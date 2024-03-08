@@ -21,6 +21,6 @@
         header('Location: index.php');
     }
     
-    echo $page->render('register.html', []);
+    echo $page->render('register.html.twig', []);
 
 

@@ -2,54 +2,68 @@
 
 {% block body%}
 
-<h1>
-    {% block title%}
-        Connexion
-    {% endblock %}
-</h1>
-
-
-
 {% if msg %}
    <div> {{msg}} </div>
 {% endif %}
 
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="styles/login.css">
+{% endblock %}
 
-<form action="" method="post">
 
-    <div>
-        <label for="email">Email</label>
-        <input 
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Entrez votre mail"
-            required="required">
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="images/test.png" style="width: 185px;" alt="logo">
+
+                  <h4 class="mt-1 mb-5 pb-1">Login</h4>
+                </div>
+
+                <form action="index.php" method="post">
+                  <p>Veuillez vous connecter à votre compte</p>
+
+                  <div class="form-outline mb-4">
+                    <input type="email" id="email" name="email" class="form-control"
+                      placeholder="Email" required />
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" name="send" style="height: 40px;">Connexion</button>
+                    <a class="text-muted" href="forgot.php">Mot de passe oublié ?</a>
+                  </div>
+
+                </form>
+
+                <!-- Ajout du lien "Not Member? Register" -->
+                <div class="text-center">
+                  <p class="mb-0">Pas encore membre ? <a href="register.php" style="color: blue;">Inscrivez-vous</a></p>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">Nous sommes bien plus qu'une simple entreprise</h4>
+                <p class="small mb-0">AccorEnergie est un leader reconnu dans le développement de systèmes de gestion d'interventions dédiés à l'industrie énergétique, avec un accent particulier sur le secteur du gaz. Grâce à notre expertise approfondie, nous concevons des solutions sur mesure pour répondre aux besoins 
+                spécifiques de nos clients, en assurant une gestion efficace et sécurisée de leurs opérations. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div>
-        <label for="password">Password :</label>
-        <input 
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Entrez votre password"
-            required="required">
-    </div>
-
-
-
-    <div>
-        <input class="bouton" type="submit" name="send" value="Se connecter">
-    </div>
-
-</form>
-
-<p>
-    <a class="link" href="register.php">Pas encore de compte ?</a>
-</p>
-
-
-
+  </div>
+</section>
 
 {% endblock %}

@@ -27,7 +27,7 @@
             }  else if ($_SESSION['user_type'] == 'admin'){
                     header("Location: admin/users.php");
             } else if ($_SESSION['user_type'] == 'client'){
-                header("Location: client.php");
+                header("Location: accueil.php");
             } else if ($_SESSION['user_type'] == 'standardiste'){
                 header("Location: standardiste.php");
             } else if ($_SESSION['user_type'] == 'intervenant'){
@@ -46,3 +46,6 @@
     echo $page->render('index.html.twig',[
         'msg' => $msg]);
 
+
+
+  

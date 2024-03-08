@@ -1,0 +1,37 @@
+{% extends "base_auth.html" %}
+
+{% block body %}
+
+<div id="container">
+
+    <nav>
+      <div id="logo">
+        AccordEnergie
+      </div>
+      <ul>
+        <li><a href="accueil.html">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="Intervention.php">Intervention</a></li>
+        <li class="dropdown"><a href="#">My Account &nbsp;<i class="fa fa-caret-down"></i></a>
+            <div class="dd">
+                <div id="up_arrow"></div>
+                <ul>
+            
+                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+
+<h1>Accueil</h1>
+
+
+<a href="account_info.php">Mon profil</a>
+
+<a href="logout.php">Se déconnecter</a>
+
+
+
+{% endblock %}

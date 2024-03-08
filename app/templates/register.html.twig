@@ -1,0 +1,85 @@
+{% extends "base_auth.html" %}
+
+{% block body%}
+
+{% if msg %}
+   <div> {{msg}} </div>
+{% endif %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="styles/register.css">
+{% endblock %}
+
+<section class="h-100 gradient-form orange-background d-flex justify-content-center align-items-center"> <!-- Centrer le div total -->
+
+<div class="container py-3 my-3 mx-3 h-75">
+
+
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-8"> <!-- Réduit la largeur de la colonne -->
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-12"> <!-- Utilise toute la largeur de la colonne -->
+              <div class="card-body p-md-4 mx-md-2"> <!-- Ajuste les marges du contenu -->
+                <div class="text-center">
+                  <img src="images/test.png" style="width: 135px;" alt="logo"> <!-- Réduit la taille du logo -->
+                  <h4 class="mt-1 mb-3 pb-1">Créer un compte</h4> <!-- Ajuste les marges du titre -->
+                </div>
+                <form action="register.php" method="post">
+                  <div class="row mb-3"> <!-- Organise les champs nom et prénom sur la même ligne -->
+                    <div class="col-md-6">
+                      <div class="form-outline mb-3"> <!-- Réduit la marge basse -->
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Nom" required /> <!-- Réduit la largeur de l'input -->
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-outline mb-3"> <!-- Réduit la marge basse -->
+                        <input type="text" id="surname" name="surname" class="form-control" placeholder="Prénom" required /> <!-- Réduit la largeur de l'input -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3"> <!-- Organise les champs email et numéro de téléphone sur la même ligne -->
+                    <div class="col-md-6">
+                      <div class="form-outline mb-3"> <!-- Réduit la marge basse -->
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required /> <!-- Réduit la largeur de l'input -->
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-outline mb-3"> <!-- Réduit la marge basse -->
+                        <input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Numéro de téléphone (10 chiffres)" required /> <!-- Réduit la largeur de l'input -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3"> <!-- Organise les champs password et confirm password sur la même ligne -->
+                    <div class="col-md-6">
+                      <div class="form-outline mb-3"> <!-- Réduit la marge basse -->
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required /> <!-- Réduit la largeur de l'input -->
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-outline mb-3"> <!-- Réduit la marge basse -->
+                        <input type="password" id="password-cfg" name="password-cfg" class="form-control" placeholder="Confirmez votre password" required /> <!-- Réduit la largeur de l'input -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center pt-1 mb-3 pb-1"> <!-- Réduit la marge basse -->
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-2 orange-background" type="submit" name="send" style="height: 35px;">Register</button> <!-- Réduit la hauteur du bouton -->
+                  </div>
+
+                </form>
+                <div class="text-center"> <!-- Ajuste la marge basse -->
+                  <p class="mb-0">Already have an account? <a href="index.php" style="color: blue;">Login here</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

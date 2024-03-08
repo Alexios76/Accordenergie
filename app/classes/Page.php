@@ -73,5 +73,11 @@ class Page
     $stmt->execute(['user_id' => $user_id]);
 }
 
+public function updateUserPassword(array $data) {
+    $sql = "UPDATE user SET password = :password WHERE email = :email";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute($data);
+}
+
 
 }
