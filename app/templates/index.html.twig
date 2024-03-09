@@ -8,6 +8,12 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="styles/login.css">
+    <style>
+      /* Ajout de styles pour les liens */
+      .link-no-underline {
+        text-decoration: none;
+      }
+    </style>
 {% endblock %}
 
 
@@ -40,14 +46,14 @@
 
                   <div class="text-center pt-1 mb-5 pb-1">
                     <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" name="send" style="height: 40px;">Connexion</button>
-                    <a class="text-muted" href="forgot.php">Mot de passe oublié ?</a>
+                    <a class="text-muted link-no-underline" href="forgot.php" style="display: block; margin-top: 10px;">Mot de passe oublié ?</a> <!-- Ajout de la classe CSS -->
                   </div>
 
                 </form>
 
                 <!-- Ajout du lien "Not Member? Register" -->
                 <div class="text-center">
-                  <p class="mb-0">Pas encore membre ? <a href="register.php" style="color: blue;">Inscrivez-vous</a></p>
+                  <p class="mb-0">Pas encore membre ? <a class="link-no-underline" href="register.php" style="color: blue;">Inscrivez-vous</a></p> <!-- Ajout de la classe CSS -->
                 </div>
 
               </div>

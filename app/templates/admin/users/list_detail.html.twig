@@ -2,32 +2,98 @@
 
 {% block body %}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>User Type</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-           
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ user['user_id']}}</td>
-            <td>{{ user['name']}}</td>
-            <td>{{ user['surname']}}</td>
-            <td>{{ user['email']}}</td>
-            <td>{{ user['phone_number']}}</td>
-            <td>{{ user['user_type']}}</td>
-            <td>{{ user['created_at']}}</td>
-            <td>{{ user['updated_at']}}</td>
-        </tr>
-    </tbody>
-</table>
+{% block styles %}
+<style>
+    body {
+        background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+        font-family: Arial, sans-serif;
+    }
+
+    .table-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .table {
+        width: 80%; /* Ajustez la largeur du tableau selon vos besoins */
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th,
+    .table td {
+        padding: 0.5rem; /* Ajustez la taille de la police selon vos besoins */
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+        background-color: #8bbd7c;
+        color: #fff;
+    }
+
+    .table tbody+tbody {
+        border-top: 2px solid #dee2e6;
+    }
+
+    .table tbody tr:nth-of-type(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table td {
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table tbody tr:last-of-type td {
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table tbody tr:last-of-type td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+
+    .table tbody tr:last-of-type td:last-child {
+        border-bottom-right-radius: 10px;
+    }
+
+</style>
+{% endblock %}
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>User Type</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ user['user_id']}}</td>
+                <td>{{ user['name']}}</td>
+                <td>{{ user['surname']}}</td>
+                <td>{{ user['email']}}</td>
+                <td>{{ user['phone_number']}}</td>
+                <td>{{ user['user_type']}}</td>
+                <td>{{ user['created_at']}}</td>
+                <td>{{ user['updated_at']}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}

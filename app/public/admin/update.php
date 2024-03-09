@@ -40,10 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id'])) {
         // Rediriger vers la page users.php après la mise à jour
         header("Location: users.php");
         exit;
-    } else {
-        // Gérer le cas où des données POST sont manquantes
-        echo "Certains champs du formulaire sont manquants";
-    }
+    } 
 } else {
     // Gérer le cas où les données POST ne sont pas envoyées correctement
     echo "Données POST non fournies";

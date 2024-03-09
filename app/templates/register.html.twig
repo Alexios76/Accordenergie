@@ -8,6 +8,12 @@
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="styles/register.css">
+    <style>
+      /* Ajout de styles pour les liens */
+      .link-no-underline {
+        text-decoration: none;
+      }
+    </style>
 {% endblock %}
 
 <section class="h-100 gradient-form orange-background d-flex justify-content-center align-items-center"> <!-- Centrer le div total -->
@@ -71,7 +77,7 @@
 
                 </form>
                 <div class="text-center"> <!-- Ajuste la marge basse -->
-                  <p class="mb-0">Already have an account? <a href="index.php" style="color: blue;">Login here</a></p>
+                  <p class="mb-0">Compte existant ? <a class="link-no-underline" href="index.php" style="color: blue;">Se connecter</a></p> <!-- Ajout de la classe CSS -->
                 </div>
               </div>
             </div>
