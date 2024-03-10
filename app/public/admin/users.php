@@ -1,10 +1,23 @@
 <?php
-
 require_once '../../vendor/autoload.php'; 
-
 use App\Page;
 
 $page = new Page();
+
+// Démarrez la session si elle n'est pas déjà démarrée
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Vérifiez si un message flash est défini
+if (isset($_SESSION['flash_message'])) {
+    // Affichez le message flash avec la classe de style appropriée
+    echo '<div class="alert alert-' . $_SESSION['flash_type'] . '">' . $_SESSION['flash_message'] . '</div>';
+
+    // Supprimez le message flash pour qu'il ne soit affiché qu'une seule fois
+    unset($_SESSION['flash_message']);
+    unset($_SESSION['flash_type']);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_POST['user_type'])) {
 
@@ -31,4 +44,3 @@ $users = $page->getAllUsers();
 echo $page->render('admin/users/list.html.twig', [
     'users' => $users
 ]);
-

@@ -1,7 +1,5 @@
 <?php
-
 require_once '../../vendor/autoload.php'; 
-
 use App\Page;
 
 $page = new Page();
@@ -14,6 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id'])) {
 
     // Appelez une méthode pour supprimer l'utilisateur de la base de données
     $page->deleteUser($user_id);
+
+ 
+
+    // Définissez un message flash de succès
+    $_SESSION['flash_message'] = "L'utilisateur a été supprimé avec succès.";
+    $_SESSION['flash_type'] = "success";
 
     // Redirigez vers la page users.php après la suppression
     header("location: users.php");

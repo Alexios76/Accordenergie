@@ -43,3 +43,16 @@
     }
   }
   
+  .return-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.return-button a {
+    color: grey;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
