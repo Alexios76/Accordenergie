@@ -7,7 +7,7 @@
     $page = new Page();
 
     $page->session->get('user');
-
+ 
     $msg = false;
 
     if(isset($_POST['send'])){
@@ -16,7 +16,9 @@
        $_SESSION = $page->getUserByEmail([
             'email' => $_POST['email']
        ]);
-       //var_dump($user);
+
+
+       
 
        if(!$_SESSION){
         $msg = "Email ou mot de passe incorrect";
@@ -24,13 +26,20 @@
             if(!password_verify($_POST['password'], $_SESSION['password']))
             {
                 $msg = "Email ou mot de passe incorrect !";
-            }  else if ($_SESSION['user_type'] == 'admin'){
-                    header("Location: admin/users.php");
+            }  else if ($_SESSION['user_type'] == 'admin') {
+                $_SESSION['user'] = true; // Définissez la session comme connectée
+                header("Location: admin/users.php"); // Redirigez l'utilisateur
+                exit(); // Assurez-vous de quitter le script après la redirection
+            
+            
             } else if ($_SESSION['user_type'] == 'client'){
+                $_SESSION['user'] = true;
                 header("Location: accueil.php");
             } else if ($_SESSION['user_type'] == 'standardiste'){
+                $_SESSION['user'] = true;
                 header("Location: standardiste.php");
             } else if ($_SESSION['user_type'] == 'intervenant'){
+                $_SESSION['user'] = true;
                 header("Location: intervenant.php");
             }
             else{

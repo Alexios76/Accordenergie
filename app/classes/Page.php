@@ -79,5 +79,4 @@ public function updateUserPassword(array $data) {
     return $stmt->execute($data);
 }
 
-
 }

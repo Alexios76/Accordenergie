@@ -4,10 +4,8 @@ use App\Page;
 
 $page = new Page();
 
-// Démarrez la session si elle n'est pas déjà démarrée
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+$page->session->get('user');
+var_dump($page->session->isConnected());
 
 // Vérifiez si un message flash est défini
 if (isset($_SESSION['flash_message'])) {
@@ -42,5 +40,7 @@ $users = $page->getAllUsers();
 
 
 echo $page->render('admin/users/list.html.twig', [
-    'users' => $users
+    'connected' => $page->session->isConnected(),
+    'users' => $users,
+    'user_type' => 'admin'
 ]);

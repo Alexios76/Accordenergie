@@ -11,13 +11,9 @@
   }
   
   .gradient-custom-1 {
-    /* Fallback pour les anciens navigateurs */
+   
     background: #8bbd7c;
-  
-    /* Chrome 10-25, Safari 5.1-6 */
     background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
-  
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
    
   }
@@ -36,14 +32,14 @@
   }
   
   .smaller-login {
-    max-width: 450px; /* Vous pouvez ajuster la valeur en pixels selon vos besoins */
+    max-width: 450px; 
     width: 100%;
    
   }
 
    
   .smaller-div {
-    max-width: 926px; /* Vous pouvez ajuster la valeur en pixels selon vos besoins */
+    max-width: 926px; 
     width: 100%;
     
   }
@@ -60,7 +56,7 @@ form {
 .container {
     margin-top: -4px;
   
-    max-width: 1000px; /* Vous pouvez ajuster la valeur en pixels selon vos besoins */
+    max-width: 1000px; 
     width: 100%;
     max-height: 300px;
    

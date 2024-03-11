@@ -1,4 +1,4 @@
-{% extends 'base_auth.html' %}
+{% extends 'base_auth.html.twig' %}
 
 {% block body %}
 
@@ -64,6 +64,22 @@
         border-bottom-right-radius: 10px;
     }
 
+     .return-button {
+        margin-top: 20px;
+        text-align: center;
+        margin-top: 150px;
+        
+    }
+
+    .return-button a {
+        color: grey;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+
 </style>
 {% endblock %}
 
@@ -94,6 +110,10 @@
             </tr>
         </tbody>
     </table>
+   <div class="return-button">
+    <a href="users.php">Retour</a>
 </div>
+</div>
+   
 
 {% endblock %}

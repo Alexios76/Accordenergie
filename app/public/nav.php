@@ -1,7 +1,15 @@
-<nav>
-    <ul>
-        <li><a href="">Accueil</a></li>
-        <li><a href="">Mes interventions </a></li>
-        <li><a href=""><img src="" alt=""></a></li>
-    </ul>
-</nav>  
+<?php
+require_once '../vendor/autoload.php';
+
+use App\Page;
+
+$page = new Page();
+$page->session->get('user');
+
+var_dump($page->session->isConnected());
+echo $page->render('base_auth.html.twig', [
+    'connected' => $page->session->isConnected(),
+    'user_type' => $page->session->get('user_type')
+]);
+?>
+
