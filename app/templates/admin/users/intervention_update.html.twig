@@ -1,0 +1,65 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Modifier l'intervention</h1>
+    <form method="post" action="update_intervention.php">
+        <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
+        <div class="form-group">
+            <label for="date_intervention">Date Intervention:</label>
+            <input type="date" class="form-control" id="date_intervention" name="date_intervention" value="{{ intervention['date_intervention'] }}">
+        </div>
+        <div class="form-group">
+            <label for="nature_intervention">Nature Intervention:</label>
+            <input type="text" class="form-control" id="nature_intervention" name="nature_intervention" value="{{ intervention['nature_intervention'] }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description">{{ intervention['description'] }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="street_and_number">Street and Number:</label>
+            <input type="text" class="form-control" id="street_and_number" name="street_and_number" value="{{ intervention['street_and_number'] }}">
+        </div>
+        <div class="form-group">
+            <label for="adress_complement">Address Complement:</label>
+            <input type="text" class="form-control" id="adress_complement" name="adress_complement" value="{{ intervention['adress_complement'] }}">
+        </div>
+        <div class="form-group">
+            <label for="code_postal">Postal Code:</label>
+            <input type="text" class="form-control" id="code_postal" name="code_postal" value="{{ intervention['code_postal'] }}">
+        </div>
+        <div class="form-group">
+            <label for="ville">City:</label>
+            <input type="text" class="form-control" id="ville" name="ville" value="{{ intervention['ville'] }}">
+        </div>
+        <div class="form-group">
+            <label for="societe">Society:</label>
+            <input type="text" class="form-control" id="societe" name="societe" value="{{ intervention['societe'] }}">
+        </div>
+        <div class="form-group">
+            <label for="degre_urgence_id">Degree of Urgency:</label>
+            <input type="text" class="form-control" id="degre_urgence_id" name="degre_urgence_id" value="{{ intervention['degre_urgence_id'] }}">
+        </div>
+        <div class="form-group">
+            <label for="status_id">Status:</label>
+            <input type="text" class="form-control" id="status_id" name="status_id" value="{{ intervention['status_id'] }}">
+        </div>
+        <div class="form-group">
+            <label for="user_id">User ID:</label>
+            <input type="text" class="form-control" id="user_id" name="user_id" value="{{ intervention['user_id'] }}">
+        </div>
+        <div class="form-group">
+            <label for="id_standardiste">ID Standardiste:</label>
+            <input type="text" class="form-control" id="id_standardiste" name="id_standardiste" value="{{ intervention['id_standardiste'] }}">
+        </div>
+        <div class="form-group">
+            <label for="id_intervenant">ID Intervenant:</label>
+            <input type="text" class="form-control" id="id_intervenant" name="id_intervenant" value="{{ intervention['id_intervenant'] }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    </form>
+</div>
+
+{% endblock %}
