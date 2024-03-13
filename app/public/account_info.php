@@ -9,8 +9,6 @@
 
     echo $page->render('account_info.html', []);    
 
-    sudo nano /etc/config/resolv.ini
-
-
+ 
 
     

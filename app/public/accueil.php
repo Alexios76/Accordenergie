@@ -1,17 +1,15 @@
 <?php
-
 require_once '../vendor/autoload.php';
-use App\Page;
 
+use App\Page;
 
 $page = new Page();
 $page->session->get('user');
 
-if ($_SESSION) {
-    echo $page->render('accueil.html.twig', [
-        'connected' => $session->isConnected()
-    ]);
-    
-}else{
-    header("Location: index.php");
-}
+
+echo $page->render('accueil.html.twig', [
+    'connected' => $page->session->isConnected(),
+    'user_type' => $page->session->get('user_type')
+]);
+?>
+
