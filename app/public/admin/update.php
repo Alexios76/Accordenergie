@@ -5,6 +5,8 @@ require_once '../../vendor/autoload.php';
 use App\Page;
 
 $page = new Page();
+$page->session->get('user');
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id'])) {
     $user_id = $_POST['user_id'];
@@ -46,5 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id'])) {
     echo "Données POST non fournies";
 }
 
-echo $page->render('admin/users/list_update.html.twig', ['user' => $user]);
+echo $page->render('admin/users/list_update.html.twig', [
+    
+    'user' => $user,
+    'connected' => $page->session->isConnected(),
+    'user_type' => 'admin'
+
+
+]);
 ?>

@@ -1,13 +1,15 @@
 <?php
-require_once '../vendor/autoload.php'; // Adjust the path as needed
+require_once '../vendor/autoload.php'; 
 use App\Page;
 
 $page = new Page();
-$user_id = $page->session->get('user_id'); // Retrieve the logged-in user's ID from the session
 
-// Check if the user is logged in and has a user_id
+
+$user_id = $page->session->get('user_id'); 
+
+
 if (!$user_id) {
-    // Redirect to login page if not logged in
+   
     header('Location: login.php');
     exit();
 }
@@ -24,5 +26,13 @@ try {
 }
 
 // Now pass the interventions array to the Twig template to render
-echo $page->render('my_interventions.html.twig', ['interventions' => $interventions]);
+echo $page->render('my_interventions.html.twig', [
+    
+    'connected' => $page->session->isConnected(),
+    'user_type' => 'client',
+    'interventions' => $interventions
+    
+
+]);
 ?>
+

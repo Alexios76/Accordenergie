@@ -5,6 +5,7 @@ require_once '../../vendor/autoload.php';
 use App\Page;
 
 $page = new Page();
+$page->session->get('user');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
@@ -24,7 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         exit;
     }
 
-    echo $page->render('admin/users/list_detail.html.twig', ['user' => $user]);
+    echo $page->render('admin/users/list_detail.html.twig', [
+        
+        'user' => $user,
+        'connected' => $page->session->isConnected(),
+        'user_type' => 'admin'
+    ]);
 } else {
     // Gérer le cas où aucun ID d'utilisateur n'est fourni dans la requête
     echo "ID d'utilisateur non fourni";
