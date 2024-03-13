@@ -6,13 +6,14 @@ namespace App;
 class Page
 {
     private \Twig\Environment $twig;
-    private $pdo;
+    public $pdo;
     public Session $session;
 
     function __construct()
     {
 
         $prefixe = str_contains(getcwd(), 'admin') ? "../" : "";
+      
 
         $this->session = new Session();
         

@@ -34,10 +34,10 @@
             
             } else if ($_SESSION['user_type'] == 'client'){
                 $_SESSION['user'] = true;
-                header("Location: accueil.php");
+                header("Location: my_interventions.php");
             } else if ($_SESSION['user_type'] == 'standardiste'){
                 $_SESSION['user'] = true;
-                header("Location: standardiste.php");
+                header("Location: standardiste/intervention.php");
             } else if ($_SESSION['user_type'] == 'intervenant'){
                 $_SESSION['user'] = true;
                 header("Location: intervenant.php");

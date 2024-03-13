@@ -1,0 +1,51 @@
+<!-- intervention_table.html.twig -->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des interventions</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des interventions</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Nature</th>
+            <th>Description</th>
+            <th>Adresse</th>
+            <th>Ville</th>
+            <th>Société</th>
+        </tr>
+        {% for intervention in interventions %}
+        <tr>
+            <td>{{ intervention.date_intervention }}</td>
+            <td>{{ intervention.nature_intervention }}</td>
+            <td>{{ intervention.description }}</td>
+            <td>{{ intervention.street_and_number }} {{ intervention.adress_complement }} {{ intervention.code_postal }}</td>
+            <td>{{ intervention.ville }}</td>
+            <td>{{ intervention.societe }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+    

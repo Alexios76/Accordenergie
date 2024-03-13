@@ -5,7 +5,6 @@ use App\Page;
 $page = new Page();
 
 $page->session->get('user');
-var_dump($page->session->isConnected());
 
 // Vérifiez si un message flash est défini
 if (isset($_SESSION['flash_message'])) {

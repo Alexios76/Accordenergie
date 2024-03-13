@@ -7,6 +7,10 @@
     $page = new Page();
 
 
-    echo $page->render('account_info.html', []);
+    echo $page->render('account_info.html', []);    
+
+    sudo nano /etc/config/resolv.ini
+
+
 
     

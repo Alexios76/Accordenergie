@@ -1,6 +1,6 @@
 <?php
 
-require_once '../vendor/autoload.php'; //Il nous evite de faire un require once
+require_once '../vendor/autoload.php'; 
 
 use App\Page;
 

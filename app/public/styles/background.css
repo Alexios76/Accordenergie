@@ -1,0 +1,144 @@
+/* Main container styles */
+.main-container {
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Top bar styles */
+.top-bar {
+    background-color: #fff;
+    /* Or any other color */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-info {
+    font-size: 1rem;
+}
+
+.cta-button {
+    background-color: #4CAF50;
+    /* Green background */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* Hero section styles */
+.hero-section {
+    padding: 20px;
+    background-color: #f2f2f2;
+    /* Light grey background */
+}
+
+.hero-text {
+    margin-bottom: 20px;
+}
+
+.hero-phone {
+    font-weight: bold;
+    color: #007bff;
+    /* Blue color for phone number */
+}
+
+/* Features section styles */
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.feature {
+    width: 30%;
+    margin: 10px;
+}
+
+/* Urgent repair section styles */
+.urgent-repair-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f2f2f2;
+    text-align: left;
+    /* Center the content */
+}
+
+.urgent-repair-section img {
+    width: 30%;
+    /* Make the image responsive */
+    height: auto;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    margin: 0;
+    /* Supprime les marges par défaut */
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    /* Espace entre les liens */
+    font-size: 0.8em;
+    /* Taille de la police réduite pour les liens */
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+    /* Ajoute un soulignement au survol pour une meilleure interactivité */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
