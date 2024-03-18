@@ -6,10 +6,7 @@ $page = new Page();
 
 $user_id = $page->session->get('user_id'); 
 
-if (!$user_id) {
-    header('Location: login.php');
-    exit();
-}
+
 
 // Vérifier si le formulaire de commentaire est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
@@ -71,6 +68,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['degree'])) {
     }
 }
 
+// Mettre à jour automatiquement le statut des interventions dont la date d'intervention est passée
+try {
+    $stmt = $page->pdo->prepare("UPDATE intervention SET status_id = (SELECT status_id FROM statut WHERE type = 'cloturer') WHERE date_intervention < CURDATE()");
+    $stmt->execute();
+} catch (PDOException $e) {
+    // Gérer l'exception
+    die("Erreur lors de la mise à jour automatique du statut : " . $e->getMessage());
+}
+
 // Récupérer les interventions de l'intervenant depuis la base de données
 $interventions = [];
 try {
@@ -104,12 +110,33 @@ try {
 // Récupérer tous les statuts de la base de données
 $statuses = [];
 try {
-    $stmt = $page->pdo->query("SELECT * FROM statut");
+    $stmt = $page->pdo->prepare("SELECT * FROM statut");
+    $stmt->execute();
     $statuses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Vérifier si une intervention est déjà en cours
+    $intervention_en_cours = false;
+    foreach ($interventions as $intervention) {
+        if ($intervention['status_type'] == 'en cours') {
+            $intervention_en_cours = true;
+            break;
+        }
+    }
+
+    // Si une intervention est en cours, retirer l'option "En cours" des statuts disponibles
+    if ($intervention_en_cours) {
+        foreach ($statuses as $key => $status) {
+            if ($status['type'] == 'en cours') {
+                unset($statuses[$key]);
+                break; // Arrêter la boucle une fois que l'option "En cours" est retirée
+            }
+        }
+    }
 } catch (PDOException $e) {
     // Gérer l'exception
     die("Erreur: " . $e->getMessage());
 }
+
 
 // Récupérer tous les degrés d'urgence de la base de données
 $degrees = [];
