@@ -6,15 +6,7 @@ $page = new Page();
 
 $page->session->get('user');
 
-// Vérifiez si un message flash est défini
-if (isset($_SESSION['flash_message'])) {
-    // Affichez le message flash avec la classe de style appropriée
-    echo '<div class="alert alert-' . $_SESSION['flash_type'] . '">' . $_SESSION['flash_message'] . '</div>';
 
-    // Supprimez le message flash pour qu'il ne soit affiché qu'une seule fois
-    unset($_SESSION['flash_message']);
-    unset($_SESSION['flash_type']);
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_POST['user_type'])) {
 
@@ -34,12 +26,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_
     }
 }
 
+// Add this line to retrieve the selected user type from the form
+$userType = isset($_GET['user_type']) ? $_GET['user_type'] : null;
 
-$users = $page->getAllUsers();
+// If "Tous" (All) is selected, set $userType to null
+if ($userType === 'tous') {
+    $userType = null;
+}
 
+// Update this line to pass the selected user type to getAllUsers function
+$users = $page->getAllUsers($userType);
 
 echo $page->render('admin/users/list.html.twig', [
     'connected' => $page->session->isConnected(),
     'users' => $users,
+    'user_type' => $userType,
     'user_type' => 'admin'
 ]);
+?>

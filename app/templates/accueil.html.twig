@@ -1,18 +1,165 @@
-{% extends "base_auth.html.twig" %}
+    {% extends "base_auth.html.twig" %}
 
-{% block body %}
+    {% block body %}
+
+    <style>
+    /* Global Styles */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #8bbd7c;
+        background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+        background: linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+        color: #fff;
+    }
+
+    a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Main Container */
+.main-container1 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+   
+    color: #333; /* Définition de la couleur du texte */
+    width: 100%; /* Définition de la largeur */
+}
+
+    
+
+    /* Top Bar */
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        color: #333;
+        padding: 10px 20px;
+    }
+
+    .logo img {
+        max-height: 70px; /* Ajustez la taille du logo selon vos besoins */
+    }
+
+    .contact-info {
+        font-size: 16px;
+        flex-grow: 1; /* Fait en sorte que les informations de contact occupent autant d'espace que possible */
+    }
+
+    .cta-button {
+        background-color: #8bbd7c;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+       
+    }
+
+    .cta-button:hover {
+         transition: background-color 0.3s ease;
+          color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: bold; 
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background-color: #fff;
+        padding: 40px;
+        margin-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-text {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .hero-phone {
+        display: block;
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    /* Features Section */
+    .features-section {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .feature {
+        background-color: #fff;
+        padding: 20px;
+        flex: 1;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    /* Urgent Repair Section */
+    .urgent-repair-section {
+        display: flex;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    .urgent-repair-section img {
+        flex: 1;
+        border-radius: 10px;
+    }
+
+    .urgent-repair-section .feature {
+        flex: 2;
+        margin-left: 20px;
+    }
+
+    .urgent-repair-section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .phone-container {
+        border: 1px solid #3e7c4d;
+        display: inline-block; /* Pour que le conteneur s'ajuste à la largeur du contenu */
+    }
 
 
-<!-- Main container -->
-<div class="main-container">
-    <!-- Top bar with contact info and CTA button -->
-    <div class="top-bar">
-        <div class="contact-info">
-            <span class="phone-number">01.25.58.67.42</span>
-            <span class="email-address">accordenergie@gmail.com</span>
+
+    </style>
+    <!-- Main container -->
+    <div class="main-container1">
+        <!-- Top bar with contact info and CTA button -->
+        <div class="top-bar">
+            <div class="logo">
+            <img src="../images/logo.png" alt="Votre Logo">
+            </div>
+            <div class="contact-info">
+                <span class="phone-number">01.25.58.67.42</span>
+                <span class="email-address">accordenergie@gmail.com</span>
+            </div>
+                    {% if user_type == 'standardiste' or user_type == 'client' %}
+                <a href="contact_operator.php" class="cta-button">Demande d'intervention</a>
+            {% endif %}
+
         </div>
-        <a href="contact_operator.php" class="cta-button">Demande d'intervention</a>
-    </div>
 
     <!-- Hero section -->
     <div class="hero-section">
@@ -21,45 +168,45 @@
             l'installation de systèmes électriques et de radiateurs. Que ce soit pour moderniser votre réseau électrique ou
             améliorer l'efficacité énergétique de votre chauffage, nous sommes là pour répondre à vos besoins en continu.
         </p>
-        <a href="tel:0125586742" class="hero-phone">01.25.58.67.42</a>
+    <div class="phone-container" style="border: 1px solid #3e7c4d; padding: 5px;">
+        <img src="../images/phone-call.png" alt="Logo" style="max-height: 20px; display: inline-block; vertical-align: middle;">
+        <a href="tel:0125586742" class="hero-phone" style="display: inline-block; vertical-align: middle; color: black; font-size: 110%; margin-top: 0px;">01.25.58.67.42</a>
     </div>
 
-    <!-- Features section -->
+
+
+    </div>
+
+
     <div class="features-section">
         <!-- Feature 1 -->
         <div class="feature">
-            <h3>Immédiat et Performant</h3>
+            <h3><img src="../images/delivery.png" alt="Your Logo" style="max-height: 40px;"> <strong>Immédiat et Performant</strong></h3>
             <p>Nos experts en électricité sont réactifs et munis du matériel adéquat pour résoudre tous vos problèmes électriques.</p>
         </div>
         <!-- Feature 2 -->
         <div class="feature">
-            <h3>Devis gratuits</h3>
+            <h3><img src="../images/euro.png" alt="Your Logo" style="max-height: 30px;"> <strong>Devis gratuits</strong></h3>
             <p>Nous adoptons une politique de tarification claire et transparente, garantissant des prix bas sans surprises.</p>
         </div>
         <!-- Feature 3 -->
         <div class="feature">
-            <h3>Dispo. 24/24 & 7/7</h3>
+            <h3><img src="../images/24-7.png" alt="Your Logo" style="max-height: 30px;"> <strong>Dispo. 24/24 & 7/7</strong></h3>
             <p>Nous intervenons dans un délai de 30 min 7 jours sur 7 & 24h/24 après votre appel. Contactez nous sans plus attendre.</p>
         </div>
     </div>
 
-    <!-- Urgent repair section -->
-    <div class="urgent-repair-section">
-        <img src="../img/depanage.jpg" alt="Dépannage image">
-        <div class="feature">
-            <h2>Dépannage en urgence</h2>
-            <p>Artisan électricien spécialisé dans les radiateurs électriques depuis 2024. Choisissez Accord Energie, électricien spécialisé dans les radiateurs électriques, pour une expérience professionnelle et fiable en matière de chauffage électrique. Notre équipe réactive, équipée de technologies de pointe, propose des solutions personnalisées et transparentes pour résoudre rapidement vos problèmes de radiateurs électriques. Optez pour notre expertise et notre engagement envers la satisfaction du client.</p>
+
+
+        <!-- Urgent repair section -->
+        <div class="urgent-repair-section">
+            <img src="../img/depanage.jpg" alt="Dépannage image">
+            <div class="feature">
+                <h2><strong>Dépannage en urgence</strong></h2>
+                <p>Artisan électricien spécialisé dans les radiateurs électriques depuis 2024. Choisissez Accord Energie, électricien spécialisé dans les radiateurs électriques, pour une expérience professionnelle et fiable en matière de chauffage électrique. Notre équipe réactive, équipée de technologies de pointe, propose des solutions personnalisées et transparentes pour résoudre rapidement vos problèmes de radiateurs électriques. Optez pour notre expertise et notre engagement envers la satisfaction du client.</p>
+            </div>
         </div>
     </div>
-</div>
-<!-- Footer -->
-<div class="footer">
-  <p>© 2024 Tous droits réservés</p>
-  <div class="footer-links">
-      <a href="#">Conditions générales</a>
-      <a href="#">Politique de confidentialité</a>
-      <a href="#">Politique de cookies</a>
-  </div>
-</div>
-{% endblock %}
+
+    {% endblock %}
 

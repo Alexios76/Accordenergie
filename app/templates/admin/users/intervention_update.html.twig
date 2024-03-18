@@ -14,10 +14,7 @@
             <label for="nature_intervention">Nature Intervention:</label>
             <input type="text" class="form-control" id="nature_intervention" name="nature_intervention" value="{{ intervention['nature_intervention'] }}">
         </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description">{{ intervention['description'] }}</textarea>
-        </div>
+       
         <div class="form-group">
             <label for="street_and_number">Street and Number:</label>
             <input type="text" class="form-control" id="street_and_number" name="street_and_number" value="{{ intervention['street_and_number'] }}">
@@ -38,25 +35,47 @@
             <label for="societe">Society:</label>
             <input type="text" class="form-control" id="societe" name="societe" value="{{ intervention['societe'] }}">
         </div>
-        <div class="form-group">
-            <label for="degre_urgence_id">Degree of Urgency:</label>
-            <input type="text" class="form-control" id="degre_urgence_id" name="degre_urgence_id" value="{{ intervention['degre_urgence_id'] }}">
-        </div>
-        <div class="form-group">
-            <label for="status_id">Status:</label>
-            <input type="text" class="form-control" id="status_id" name="status_id" value="{{ intervention['status_id'] }}">
-        </div>
+ <div class="form-group">
+    <label for="degre_urgence_id">Degree of Urgency:</label>
+    <select class="form-control" id="degre_urgence_id" name="degre_urgence_id">
+        {% for degree in degrees %}
+            <option value="{{ degree['degre_urgence_id'] }}" {% if degree['degre_urgence_id'] == intervention['degre_urgence_id'] %} selected {% endif %}>
+                {{ degree['degre_urgence_id'] }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="status_id">Status:</label>
+    <select class="form-control" id="status_id" name="status_id">
+        {% for status in statusTypes %}
+            <option value="{{ status['status_id'] }}" {% if status['status_id'] == intervention['status_id'] %} selected {% endif %}>
+                {{ status['type'] }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
         <div class="form-group">
             <label for="user_id">User ID:</label>
             <input type="text" class="form-control" id="user_id" name="user_id" value="{{ intervention['user_id'] }}">
         </div>
         <div class="form-group">
-            <label for="id_standardiste">ID Standardiste:</label>
-            <input type="text" class="form-control" id="id_standardiste" name="id_standardiste" value="{{ intervention['id_standardiste'] }}">
+            <label for="id_standardiste">Standardiste:</label>
+            <select class="form-control" id="id_standardiste" name="id_standardiste">
+                {% for standardiste in standardistes %}
+                    <option value="{{ standardiste['user_id'] }}">{{ standardiste['name'] }}</option>
+                {% endfor %}
+            </select>
         </div>
         <div class="form-group">
-            <label for="id_intervenant">ID Intervenant:</label>
-            <input type="text" class="form-control" id="id_intervenant" name="id_intervenant" value="{{ intervention['id_intervenant'] }}">
+            <label for="id_intervenant">Intervenant:</label>
+            <select class="form-control" id="id_intervenant" name="id_intervenant">
+                {% for intervenant in intervenants %}
+                    <option value="{{ intervenant['user_id'] }}">{{ intervenant['name'] }}</option>
+                {% endfor %}
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Modifier</button>
     </form>

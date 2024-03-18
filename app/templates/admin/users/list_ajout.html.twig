@@ -2,8 +2,6 @@
 
 {% block body %}
 
-
-
 <style>
     body {
         background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
@@ -65,7 +63,10 @@
         color: #333; 
     }
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
         width: 100%;
         padding: 10px;
         margin-bottom: 10px;
@@ -97,38 +98,50 @@
         font-size: 13px;
     }
 
+    .required::after {
+        content: "*";
+        color: red;
+    }
+    
+
 </style>
 
 <div class="container">
     <h2 class="mb-4">Ajouter un nouvel utilisateur</h2>
+{% if flash_message is defined %}
+    <div class="alert alert-{{ flash_message.type }}" style="color: red; font-weight: bold;">
+        {{ flash_message.message }}
+    </div>
+{% endif %}
+    
     <form method="post" action="add_user.php">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="name" class="required">Nom:</label>
+                    <input type="text" class="form-control" id="name" name="name" required value="{{ form_data.name ?? '' }}">
                 </div>
                 <div class="form-group">
-                    <label for="password">Mot de passe:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <label for="email" class="required">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required value="{{ form_data.email ?? '' }}">
                 </div>
                 <div class="form-group">
-                    <label for="name">Nom:</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <label for="phone_number" class="required">Numéro de téléphone:</label>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" required value="{{ form_data.phone_number ?? '' }}">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="surname">Prénom:</label>
-                    <input type="text" class="form-control" id="surname" name="surname" required>
+                    <label for="surname" class="required">Prénom:</label>
+                    <input type="text" class="form-control" id="surname" name="surname" required value="{{ form_data.surname ?? '' }}">
                 </div>
                 <div class="form-group">
-                    <label for="phone_number">Numéro de téléphone:</label>
-                    <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                    <label for="password" class="required">Mot de passe:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="user_type">Type d'utilisateur:</label>
-                    <select class="form-control" id="user_type" name="user_type">
+                    <label for="user_type" class="required">Type d'utilisateur:</label>
+                    <select class="form-control" id="user_type" name="user_type" required>
                         <option value="standardiste">Standardiste</option>
                         <option value="client">Client</option>
                         <option value="intervenant">Intervenant</option>
@@ -139,9 +152,8 @@
         </div>
         <button type="submit" class="submit">Ajouter</button>
         <div class="return-button">
-    <a href="users.php">Retour</a>
-</div>
-
+            <a href="users.php">Retour</a>
+        </div>
     </form>
 </div>
 

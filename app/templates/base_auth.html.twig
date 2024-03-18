@@ -33,16 +33,17 @@
                 padding: 10px 20px;
             }
 
-            footer {
-                background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
-                background: linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
-                color: white;
-                padding: 20px;
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-                text-align: center;
-            }
+           footer {
+            background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+            background: linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+            color: white;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.3); /* Ajout d'une bordure légère */
+        }
 
             .company-name {
                 font-size: 24px;
@@ -102,7 +103,7 @@
         <div class="company-name">Accordenergie</div>
 
             <ul class="nav-links">
-                <li><a href='../index.php'>Accueil</a></li>
+                <li><a href='../accueil.php'>Accueil</a></li>
                 <li><a href='../register.php'>Inscription</a></li>
                 <li><a href='../index.php'>Connexion</a></li>
             </ul>
@@ -122,8 +123,8 @@
         <nav>
         <div class="company-name">Accordenergie</div>
             <ul class="nav-links">
-                <li><a href='#'>Home</a></li>
-                <li><a href=''>Interventions</a></li>
+                <li><a href='../accueil.php'>Home</a></li>
+                <li><a href='../intervenant.php'>Interventions</a></li>
                 <li><a href='#'>Profil</a></li>
                 <li><a href='logout.php'>Logout</a></li>
             </ul>
@@ -138,14 +139,14 @@
                 <li><a href='logout.php'>Logout</a></li>
             </ul>
         </nav>
-        {% elseif user_type == 'standard' %}
+        {% elseif user_type == 'standardiste' %}
         <nav>
         <div class="company-name">Accordenergie</div>
             <ul class="nav-links">
                 <li><a href='#'>Home</a></li>
                 <li><a href='#'>Interventions</a></li>
                 <li><a href='#'>Profil</a></li>
-                <li><a href='#'>Logout</a></li>
+                <li><a href='logout.php'>Logout</a></li>
             </ul>
         </nav>
         {% endif %}

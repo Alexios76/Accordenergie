@@ -1,39 +1,266 @@
-{% extends "base_auth.html.twig" %}
+{% extends 'base_auth.html.twig' %}
 
 {% block body %}
-<h1>My Interventions</h1>
 
-<!-- Interventions Table -->
-<table>
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Nature</th>
-            <th>Description</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Company</th>
-            <th>Urgency Degree</th>
-            <th>Status</th>
+{% block styles %}
+<style>
+    body {
+        background: #f2f2f2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #218838; /* Couleur du titre */
+        font-size: 24px; /* Taille de police du titre */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    th {
+        background-color: #8bbd7c;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    img {
+        max-width: 40px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        margin-left: 10px;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+    }
+
+    .action-buttons button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: #fff;
+    }
+
+    .action-buttons button:hover {
+        background-color: #dddddd;
+    }
+
+    .return-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .return-button a {
+        color: #8bbd7c;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .add-intervention-button {
+        float: right;
+        margin-bottom: 20px;
+    }
+
+    .add-intervention-button a {
+        background-color:  #8bbd7c;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .add-intervention-button a:hover {
+        background-color: #218838;
+    }
+
+    .status-type {
+        white-space: nowrap;
+    }
+
+    /* Ajout pour le formulaire de filtrage */
+    .filter-form-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .filter-form {
+        text-align: center;
+    }
+
+    .filter-form label {
+        font-weight: bold;
+    }
+
+    .filter-form select {
+        padding: 8px 12px;
+        border-radius: 4px;
+    }
+
+    .filter-form button {
+        padding: 8px 20px;
+        border-radius: 4px;
+        background-color: #8bbd7c;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .filter-form button:hover {
+        background-color: #218838;
+    }
+   .annuler {
+    border-left: 5px solid red; /* Ajoute une bordure rouge à gauche pour indiquer l'annulation */
+}
+
+.cloturer {
+    background-color: #dcdcdc; /* Couleur de fond plus claire pour les interventions clôturées */
+    color: #555; /* Couleur du texte assombri pour une lisibilité adéquate */
+}
+
+
+</style>
+{% endblock %}
+{% block javascript %}
+    <script>
+        function sortInterventions(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("interventions-table");
+            switching = true;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+
+                    x = rows[i].getElementsByTagName("td")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+
+                    // Compare les valeurs, en ignorant la casse
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+{% endblock %}
+
+<div class="container">
+    <h1>Mes Interventions</h1>
+
+
+
+   
+     <table id="interventions-table">
+        <thead>
+            <tr>
+                <th onclick="sortInterventions(0)" data-sort="intervention_id">Code Intervention</th>
+                <th onclick="sortInterventions(1)" data-sort="date_intervention">Date Intervention</th>
+                <th onclick="sortInterventions(3)" data-sort="intervenant_name">Intervenant</th>
+                <th onclick="sortInterventions(4)" data-sort="adresse">Adresse complète</th>
+                <th onclick="sortInterventions(5)" data-sort="degre_urgence_type">Degré d'urgence</th>
+                <th onclick="sortInterventions(6)" data-sort="status_type">Statut</th>
+                
+            </tr>
+        </thead>
+       <tbody>
+{% for intervention in interventions %}
+    {% set status_class = '' %}
+    {% if intervention['status_type'] in ['en cours', 'en attente', 'validee'] %}
+        {% set status_class = intervention['status_type'] %}
+        <tr class="{{ status_class }}">
+            <td>{{ intervention['intervention_id'] }}</td>
+            <td>{{ intervention['date_intervention'] }}</td>
+            <td>{{ intervention['intervenant_name'] }} {{ intervention['intervenant_surname'] }}</td>
+            <td>{{ intervention['street_and_number'] }} {{ intervention['code_postal'] }}, {{ intervention['ville'] }}</td>
+            <td><img src="../{{ intervention['degre_urgence_type'] }}" alt="Degré d'urgence" ></td>
+            <td class="status-type">{{ intervention['status_type'] }}</td>
         </tr>
-    </thead>
-    <tbody>
-        {% for intervention in interventions %}
-        <tr>
-            <td>{{ intervention.date_intervention }}</td>
-            <td>{{ intervention.nature_intervention }}</td>
-            <td>{{ intervention.description }}</td>
-            <td>{{ intervention.street_and_number }} {{ intervention.adress_complement }}</td>
-            <td>{{ intervention.ville }}</td>
-            <td>{{ intervention.societe }}</td>
-            <td>{{ intervention.degre_urgence_id }}</td>
-            <td>{{ intervention.status_id }}</td>
+    {% endif %}
+{% endfor %}
+
+
+
+</tbody>
+
+    </table>
+    <h1 style="margin-top: 20px;">Interventions Achevées</h1>
+     <table id="interventions-table">
+        <thead>
+            <tr>
+                <th onclick="sortInterventions(0)" data-sort="intervention_id">Code Intervention</th>
+                <th onclick="sortInterventions(1)" data-sort="date_intervention">Date Intervention</th>
+                <th onclick="sortInterventions(3)" data-sort="intervenant_name">Intervenant</th>
+                <th onclick="sortInterventions(4)" data-sort="adresse">Adresse complète</th>
+                <th onclick="sortInterventions(5)" data-sort="degre_urgence_type">Degré d'urgence</th>
+                <th onclick="sortInterventions(6)" data-sort="status_type">Statut</th>
+                
+            </tr>
+        </thead>
+       <tbody>
+{% for intervention in interventions %}
+    {% set status_class = '' %}
+    {% if intervention['status_type'] == 'annuler' or intervention['status_type'] == 'cloturer' %}
+        {% set status_class = intervention['status_type'] %}
+        <tr class="{{ status_class }}">
+            <td>{{ intervention['intervention_id'] }}</td>
+            <td>{{ intervention['date_intervention'] }}</td>
+            <td>{{ intervention['intervenant_name'] }} {{ intervention['intervenant_surname'] }}</td>
+            <td>{{ intervention['street_and_number'] }} {{ intervention['code_postal'] }}, {{ intervention['ville'] }}</td>
+            <td><img src="../{{ intervention['degre_urgence_type'] }}" alt="Degré d'urgence" ></td>
+            <td class="status-type">{{ intervention['status_type'] }}</td>
         </tr>
-        {% else %}
-        <tr>
-            <td colspan="8">No interventions found.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    {% endif %}
+{% endfor %}
+
+
+</tbody>
+
+    </table>
+    <div class="return-button">
+        <a href="../accueil.php">Retour</a>
+    </div>
+</div>
+
 {% endblock %}

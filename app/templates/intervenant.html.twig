@@ -1,0 +1,294 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../script/intervenant.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 90%;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    h1 {
+        color: #333333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #8bbd7c;
+    }
+
+    th {
+        background-color: #8bbd7c;
+        color: #ffffff;
+    }
+
+    tbody tr:hover {
+        background-color: #f2f2f2;
+    }
+
+    .comment-container {
+        position: relative;
+    }
+
+    .comment-form {
+        display: none;
+        width: 80%;
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 40px;
+    }
+
+    .comment-form textarea {
+        width: 100%;
+        height: 80px;
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+    }
+
+    .comment-form button {
+        background-color: #8bbd7c;
+        color: #ffffff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .return-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .return-button a {
+        background-color: #8bbd7c;
+        color: #ffffff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    .return-button a:hover {
+        background-color: #6d975f;
+    }
+
+    .success-message {
+        color: green;
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    .comment-logo {
+        cursor: pointer;
+        width: 20px;
+        vertical-align: middle;
+        margin-left: 40px;
+    }
+
+    .logo {
+        cursor: pointer;
+        width: 25px;
+        vertical-align: middle;
+        margin-left: 25px;
+    }
+
+    .today-intervention {
+        background-color: white; /* Changez la couleur d'arrière-plan selon vos préférences */
+    }
+
+    .status-form {
+        width: 120px; /* Vous pouvez ajuster la largeur selon vos préférences */
+    }
+
+    .edit-status {
+        text-decoration: none;
+    }
+     .edit-degree {
+        text-decoration: none;
+    }
+    
+    th.sortable:nth-child(1) { /* Code Intervention */
+    width: 1%;
+}
+ th.sortable:nth-child(5) { /* Code Intervention */
+    width: 1%;
+}
+ th.sortable:nth-child(7) { /* Code Intervention */
+    width: 10%;
+}
+</style>
+
+<div class="container">
+    <h1>Mes Interventions</h1>
+
+    <div class="comment-form" style="display: none;">
+        <form method="post" class="commentForm" action="">
+            <input type="hidden" name="id" value="">
+            <textarea name="comment" placeholder="Écrire un commentaire..."></textarea>
+            <button type="submit">Mettre à jour le commentaire</button>
+        </form>
+        <div class="success-message"></div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="sortable">Code Intervention</th>
+                <th class="sortable">Date Intervention</th>
+                <th class="sortable">Client</th>
+                <th class="sortable">Adresse complète</th>
+                <th class="sortable">Degré d'urgence</th>
+                <th class="sortable">Statut</th>
+                <th class="sortable">Actions</th>
+                <th class="sortable">Commentaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for intervention in interventions %}
+            {% set status_class = '' %}
+            {% if intervention['status_type'] in ['en cours', 'en attente', 'validee'] %}
+            {% set today_date = "now"|date('Y-m-d') %}
+            {% set intervention_date = intervention['date_intervention']|date('Y-m-d') %}
+            <tr {% if intervention_date == today_date %}class="today-intervention"{% endif %}>
+                <td>{{ intervention['intervention_id'] }}</td>
+                <td>
+                    {{ intervention['date_intervention'] }}
+                    {% if intervention_date == today_date %}
+                    <br><span id="urgentMessage_{{ loop.index }}" style="color: red; font-size: small; font-weight: bold;">Intervention se déroule aujourd'hui</span>
+                    {% endif %}
+                </td>
+                <td>{{ intervention['client_name'] }} {{ intervention['client_surname'] }}</td>
+                <td>{{ intervention['street_and_number'] }} {{ intervention['code_postal'] }}, {{ intervention['ville'] }}</td>
+                <td><img src="../{{ intervention['degre_urgence_type'] }}" alt="Degré d'urgence" class="logo"></td>
+                 <td class="status-type">{{ intervention['status_type'] }}</td>
+          
+             <td>
+ <a href="intervenant.php" class="edit-status" data-intervention-id="{{ intervention['intervention_id'] }}" style="display: inline-block; width: 30px; height: 30px;">
+    <img src="../img/clipboard.png" alt="Modifier Statut" style="width: 100%; height: 100%;  margin-left: 15px;">
+</a>
+
+    <div class="status-form" style="display: none;">
+        <form method="post" action="intervenant.php">
+            <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
+            <select name="status" onchange="console.log(this.value)">
+                {% for status in statuses %}
+                <option value="{{ status['status_id'] }}" {% if status['status_id'] == intervention['status_id'] %} selected {% endif %}>
+                    {{ status['type'] }}
+                </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Mettre à jour le statut</button>
+        </form>
+    </div>
+    
+         <a href="intervenant.php" class="edit-degree" data-intervention-id="{{ intervention['intervention_id'] }}" style="display: inline-block; width: 30px; height: 30px;">
+    <img src="../img/siren.png" alt="Modifier Degré d'urgence" style="width: 100%; height: 100%; margin-left: 20px;">
+</a>
+    <div class="degree-form" style="display: none;">
+        <form method="post" action="intervenant.php">
+            <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
+            <select name="degree">
+                {% for degree in degrees %}
+               <option value="{{ degree['degre_urgence_id'] }}" {% if degree['degre_urgence_id'] == intervention['degre_urgence_id'] %} selected {% endif %}>
+    {{ degree['degre_urgence_id'] }}
+</option>
+
+                {% endfor %}
+            </select>
+            <button type="submit">Mettre à jour le degré d'urgence</button>
+        </form>
+    </div>
+   
+</td>
+
+                <td>
+                    <div class="comment-container">
+                        <img src="../images/commentaire.png" alt="Logo" class="comment-logo" data-intervention-id="{{ intervention['intervention_id'] }}">
+                        <div class="comment-form">
+                            <form method="post" class="commentForm" action="">
+                                <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
+                                <textarea name="comment" placeholder="Écrire un commentaire...">{{ intervention['description'] }}</textarea>
+                                <button type="submit">Mettre à jour le commentaire</button>
+                            </form>
+                            <div class="success-message"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <script>
+                // Code JavaScript pour faire clignoter le message d'intervention urgente
+                setInterval(function() {
+                    $('#urgentMessage_{{ loop.index }}').fadeOut(1000).fadeIn(1000);
+                }, 1000);
+            </script>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table id="table-interventions-passees">
+        <thead>
+            <br><br>
+            <h2 style="text-align: center;">Interventions Passées</h2>
+            <tr>
+                <th class="sortable">Code Intervention</th>
+                <th class="sortable">Date Intervention</th>
+                <th class="sortable">Client</th>
+                <th class="sortable">Adresse complète</th>
+                <th class="sortable">Degré d'urgence</th>
+                <th class="sortable">Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for intervention in interventions %}
+            {% set status_class = '' %}
+            {% if intervention['status_type'] in ['annuler', 'cloturer'] %}
+            <tr>
+                <td>{{ intervention['intervention_id'] }}</td>
+                <td>{{ intervention['date_intervention'] }}</td>
+                <td>{{ intervention['client_name'] }} {{ intervention['client_surname'] }}</td>
+                <td>{{ intervention['street_and_number'] }} {{ intervention['code_postal'] }}, {{ intervention['ville'] }}</td>
+                <td><img src="../{{ intervention['degre_urgence_type'] }}" alt="Degré d'urgence" class="logo"></td>
+                <td class="status-type">{{ intervention['status_type'] }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="return-button">
+        <a href="../accueil.php">Retour</a>
+    </div>
+</div>
+{% endblock %}

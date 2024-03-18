@@ -59,14 +59,22 @@ class Page
     }
 
 
-    public function getAllUsers(){
-        $sql = "SELECT * FROM user";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $users = $stmt ->fetchAll(\PDO::FETCH_ASSOC);
-        return $users;
+ 
+
+public function getAllUsers($userType = null) {
+    $sql = "SELECT * FROM user";
+    if ($userType !== null) {
+        $sql .= " WHERE user_type = :user_type";
     }
-    
+    $stmt = $this->pdo->prepare($sql);
+    if ($userType !== null) {
+        $stmt->bindValue(':user_type', $userType);
+    }
+    $stmt->execute();
+    $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $users;
+}
+
     public function deleteUser($user_id)
 {
     $sql = "DELETE FROM user WHERE user_id = :user_id";
@@ -79,5 +87,80 @@ public function updateUserPassword(array $data) {
     $stmt = $this->pdo->prepare($sql);
     return $stmt->execute($data);
 }
+
+public function deleteIntervention($intervention_id)
+{
+    $sql = "DELETE FROM intervention WHERE intervention_id = :intervention_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['intervention_id' => $intervention_id]);
+}
+
+// Ajouter cette méthode dans la classe Page
+public function addIntervention($date_intervention, $nature_intervention, $description, $street_and_number, $adress_complement, $code_postal, $ville, $societe, $degre_urgence_id, $status_id, $user_id, $id_standardiste, $id_intervenant)
+{
+    // Préparer la requête SQL pour insérer une nouvelle intervention
+    $sql = "INSERT INTO intervention (date_intervention, nature_intervention, description, street_and_number, adress_complement, code_postal, ville, societe, degre_urgence_id, status_id, user_id, id_standardiste, id_intervenant) 
+            VALUES (:date_intervention, :nature_intervention, :description, :street_and_number, :adress_complement, :code_postal, :ville, :societe, :degre_urgence_id, :status_id, :user_id, :id_standardiste, :id_intervenant)";
+    
+    // Préparer et exécuter la requête avec les valeurs des paramètres
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+        'date_intervention' => $date_intervention,
+        'nature_intervention' => $nature_intervention,
+        'description' => $description,
+        'street_and_number' => $street_and_number,
+        'adress_complement' => $adress_complement,
+        'code_postal' => $code_postal,
+        'ville' => $ville,
+        'societe' => $societe,
+        'degre_urgence_id' => $degre_urgence_id,
+        'status_id' => $status_id,
+        'user_id' => $user_id,
+        'id_standardiste' => $id_standardiste,
+        'id_intervenant' => $id_intervenant
+    ]);
+}
+
+public function getStandardistes(){
+    $sql = "SELECT * FROM user WHERE user_type = 'standardiste'";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    $standardistes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $standardistes;
+}
+public function getIntervenants(){
+    $sql = "SELECT * FROM user WHERE user_type = 'intervenant'";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    $intervenants = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $intervenants;
+}
+
+public function getClients(){
+    $sql = "SELECT * FROM user WHERE user_type = 'client'";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    $clients = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $clients;
+}
+
+
+public function getAllDegreUrgence(){
+    $sql = "SELECT * FROM degreurgence";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    $degre_urgence_list = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $degre_urgence_list;
+}
+
+// Ajoutez cette méthode dans la classe Page
+public function getAllStatusTypes(){
+    $sql = "SELECT * FROM statut";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    $statusTypes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $statusTypes;
+}
+
 
 }
