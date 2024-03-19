@@ -1,150 +1,247 @@
 {% extends 'base_auth.html.twig' %}
 
 {% block body %}
+<style>
+         /* Reset des styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% block styles %}
-    <style>
+        /* Styles généraux */
         body {
-            background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
             font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
         }
 
-        .table-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* En-tête */
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
         }
 
-        .table {
-            width: 80%;
-            max-width: 100%;
-            margin-bottom: 1rem;
+        /* Tableau des détails */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .table th,
-        .table td {
-            padding: 0.5rem;
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
 
-        .table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
-            background-color: #8bbd7c;
-            color: #fff;
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #555;
         }
 
-        .table tbody+tbody {
-            border-top: 2px solid #dee2e6;
-        }
-
-        .table tbody tr:nth-of-type(even) {
+        tr:nth-child(even) {
             background-color: #f9f9f9;
         }
 
-        .table td {
-            border-top: 1px solid #dee2e6;
+        tr:hover {
+            background-color: #f2f2f2;
         }
-
-        .table tbody tr:last-of-type td {
-            border-bottom: 2px solid #dee2e6;
+        
+        img {
+            max-width: 30px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
-
-        .table tbody tr:last-of-type td:first-child {
-            border-bottom-left-radius: 10px;
-        }
-
-        .table tbody tr:last-of-type td:last-child {
-            border-bottom-right-radius: 10px;
-        }
-
+        
+        /* Bouton de retour */
         .return-button {
-            margin-top: 20px;
             text-align: center;
-            margin-top: 150px;
+            margin-top: 20px;
         }
 
         .return-button a {
-            color: grey;
+            color: #007bff;
             text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
+            font-size: 16px;
+            transition: color 0.3s ease;
         }
 
-        /* Ajout de styles pour les boutons d'action */
-        .action-buttons {
-            display: flex;
-            justify-content: space-around;
+        .return-button a:hover {
+            color: #0056b3;
         }
 
-        .action-buttons form {
-            display: inline;
+        /* Formulaire de commentaire */
+        .comment-form {
+            display: none;
+            margin-top: 10px;
         }
 
-        .action-buttons button {
-            margin: 0 3px;
+        .comment-form textarea {
+            width: 100%;
+            height: 100px;
+            resize: none;
         }
+
+        .comment-form button {
+            margin-top: 5px;
+        }
+
+        .comment-text {
+            margin-top: 10px;
+        }
+            .progress-bar-container {
+    margin: 20px;
+}
+
+.progress-bar {
+    height: 20px;
+    width: 100%;
+    background-color: #f2f2f2;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+}
+
+.status-label {
+    margin-top: 5px;
+    text-align: center;
+}
+
+/* Styles spécifiques aux états de progression */
+.progress-bar-container.en-cours .progress {
+    background-color: #FFA500; /* Jaune */
+}
+
+.progress-bar-container.en-attente .progress {
+    background-color: #87CEEB; /* Bleu clair */
+}
+
+.progress-bar-container.valide .progress {
+    background-color: #4CAF50; /* Vert */
+}
+
+.status-label {
+    margin-top: 5px;
+    text-align: center;
+}
+
     </style>
-{% endblock %}
-
-
-<div class="table-container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Date Intervention</th>
-                <th>Nature Intervention</th>
-                <th>Description</th>
-                <th>Street and Number</th>
-                <th>Address Complement</th>
-                <th>Postal Code</th>
-                <th>City</th>
-                <th>Society</th>
-                <th>Degree of Urgency</th>
-                <th>Status</th>
-                <th>ID Client</th>
-                <th>ID Standardiste</th>
-                <th>ID Intervenant</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-         
-            <tr>
-                <td>{{ intervention['intervention_id'] }}</td>
-                <td>{{ intervention['date_intervention'] }}</td>
-                <td>{{ intervention['nature_intervention'] }}</td>
-                <td>{{ intervention['description'] }}</td>
-                <td>{{ intervention['street_and_number'] }}</td>
-                <td>{{ intervention['adress_complement'] }}</td>
-                <td>{{ intervention['code_postal'] }}</td>
-                <td>{{ intervention['ville'] }}</td>
-                <td>{{ intervention['societe'] }}</td>
-                <td>{{ intervention['degre_urgence_id'] }}</td>
-                <td>{{ intervention ['status_id'] }}</td>
-                <td>{{ intervention['user_id'] }}</td>
-                <td>{{ intervention['id_standardiste'] }}</td>
-                <td>{{ intervention['id_intervenant'] }}</td>
-                <td>{{ intervention['name'] }}</td>
-                <td>{{ intervention['surname'] }}</td>
-                
-            </tr>
-      
-        </tbody>
-    </table>
-    <div class="return-button">
-        <a href="interventions.php">Retour</a>
+<h1>Détails de l'intervention</h1>
+<div id="progress-bar-container" class="progress-bar-container">
+    <div id="progress-bar" class="progress-bar">
+        <div id="progress" class="progress"></div>
     </div>
+    <div id="status-label" class="status-label"></div>
 </div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date d'intervention</th>
+            <th>Nature de l'intervention</th>
+            <th>Rue et numéro</th>
+            <th>Code postal</th>
+            <th>Ville</th>
+            <th>Société</th>
+            <th>Degré d'urgence</th>
+            <th>Statut</th>
+            <th>Intervenant</th>
+            <th>Standardiste</th>
+            <th>Commentaire</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ intervention.intervention_id }}</td>
+            <td>{{ intervention.date_intervention }}</td>
+            <td>{{ intervention.nature_intervention }}</td>
+            <td>{{ intervention.street_and_number }}</td>
+            <td>{{ intervention.code_postal }}</td>
+            <td>{{ intervention.ville }}</td>
+            <td>{{ intervention.societe }}</td>
+            <td><img src="../{{ intervention.degre_urgence_type }}" alt="Degré d'urgence"></td>
+            <td>{{ intervention.status_type }}</td>
+            <td>{{ intervention.intervenant_surname }} {{ intervention.intervenant_name }}</td>
+            <td>{{ intervention.standardiste_surname }} {{ intervention.standardiste_name }}</td>
+
+<td>
+
+    <img src="../images/commentaire.png" alt="Logo" class="logo" id="comment-trigger">
+    <div class="comment-form">
+        <form method="post" id="commentForm" action=""> 
+            <input type="hidden" name="id" value="{{ intervention.intervention_id }}">
+            <textarea name="comment" placeholder="Écrire un commentaire...">{{ intervention.description }}</textarea>
+            <button type="submit">Mettre à jour le commentaire</button>
+        </form>
+        <div class="comment-text"></div>
+    </div>
+  
+    <div class="success-message"></div>
+</td>
+
+        </tr>
+    </tbody>
+</table>
+
+<div class="return-button">
+    <a href="interventions.php">Retour</a>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Fonction pour mettre à jour la barre de progression
+    function updateProgressBar(statusType) {
+        console.log("Statut récupéré:", statusType); // Débogage
+
+        var progress = 0;
+        var statusLabel = '';
+
+        // Retirer toutes les classes associées à la progression
+        $('#progress-bar').removeClass('en-cours en-attente valide');
+
+        switch (statusType.toLowerCase()) { // Convertir en minuscules pour gérer les cas de texte
+            case 'en cours':
+                progress = 20;
+                statusLabel = 'En cours';
+                $('#progress-bar').addClass('en-cours');
+                break;
+            case 'en attente':
+                progress = 40;
+                statusLabel = 'En attente';
+                $('#progress-bar').addClass('en-attente');
+                break;
+            case 'validee': // Corriger la casse
+                progress = 100;
+                statusLabel = 'Validé';
+                $('#progress-bar').addClass('valide');
+                break;
+            default:
+                progress = 0;
+                statusLabel = 'Non défini';
+        }
+
+        $('#progress').css('width', progress + '%');
+        $('#status-label').text(statusLabel);
+    }
+
+    // Initialisation de la barre de progression
+    updateProgressBar('{{ intervention.status_type }}');
+});
+
+</script>
+
 
 {% endblock %}
