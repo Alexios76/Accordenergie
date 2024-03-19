@@ -1,0 +1,145 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block body %}
+
+{% block styles %}
+<style>
+    body {
+        background: #f2f2f2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 800px; /* Redimensionner la largeur pour une meilleure lisibilité */
+        margin: 20px auto; /* Centrer verticalement */
+        background-color: #fff; /* Fond blanc */
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .required::after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Couleur de fond du bouton */
+        border: none;
+        color: #fff; /* Couleur du texte */
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3; /* Couleur de fond au survol */
+    }
+        .btn-back {
+        background-color: #6c757d; /* Couleur de fond du bouton retour */
+        border: none;
+        color: #fff; /* Couleur du texte */
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-back:hover {
+        background-color: #5a6268; /* Couleur de fond au survol */
+    }
+</style>
+{% endblock %}
+
+<div class="container">
+    <h1>Ajouter une intervention</h1>
+    <form method="post" action="add_intervention.php">
+        <div class="form-group">
+            <label for="date_intervention" class="required">Date Intervention:</label>
+            <input type="date" class="form-control" id="date_intervention" name="date_intervention">
+        </div>
+        <div class="form-group">
+            <label for="nature_intervention" class="required">Nature Intervention:</label>
+            <input type="text" class="form-control" id="nature_intervention" name="nature_intervention">
+        </div>
+        <div class="form-group">
+            <label for="description" class="required">Description:</label>
+            <textarea class="form-control" id="description" name="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="street_and_number" class="required">Street and Number:</label>
+            <input type="text" class="form-control" id="street_and_number" name="street_and_number">
+        </div>
+        <div class="form-group">
+            <label for="adress_complement">Address Complement:</label>
+            <input type="text" class="form-control" id="adress_complement" name="adress_complement">
+        </div>
+        <div class="form-group">
+            <label for="code_postal" class="required">Postal Code:</label>
+            <input type="text" class="form-control" id="code_postal" name="code_postal">
+        </div>
+        <div class="form-group">
+            <label for="ville" class="required">City:</label>
+            <input type="text" class="form-control" id="ville" name="ville">
+        </div>
+        <div class="form-group">
+            <label for="societe" >Society:</label>
+            <input type="text" class="form-control" id="societe" name="societe">
+        </div>
+        <div class="form-group">
+            <label for="degre_urgence_id" class="required">Degré d'urgence:</label>
+            <select class="form-control" id="degre_urgence_id" name="degre_urgence_id">
+                {% for degre_urgence in degre_urgence_list %}
+                    <option value="{{ degre_urgence['degre_urgence_id'] }}">{{ degre_urgence['degre_urgence_id'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="user_id" class="required">Client:</label>
+            <select class="form-control" id="user_id" name="user_id">
+                {% for client in clients %}
+                    <option value="{{ client['user_id'] }}">{{ client['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="id_standardiste" class="required">Standardiste:</label>
+            <select class="form-control" id="id_standardiste" name="id_standardiste">
+                {% for standardiste in standardistes %}
+                    <option value="{{ standardiste['user_id'] }}">{{ standardiste['surname'] }} {{ standardiste['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="id_intervenant" class="required">Intervenant:</label>
+            <select class="form-control" id="id_intervenant" name="id_intervenant">
+                {% for intervenant in intervenants %}
+                    <option value="{{ intervenant['user_id'] }}">{{ intervenant['surname'] }} {{ intervenant['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+
+    </form>
+     <a href="interventions.php" class="btn btn-back">Retour</a>
+</div>
+
+{% endblock %}

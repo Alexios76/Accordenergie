@@ -26,7 +26,8 @@
     }
 
     table {
-        width: 100%;
+        width: 120%;
+        margin-left: -120px;
         border-collapse: collapse;
         border-radius: 8px;
         overflow: hidden;
@@ -87,6 +88,7 @@
     .add-intervention-button {
         float: right;
         margin-bottom: 20px;
+        margin-right: -100px;
     }
 
     .add-intervention-button a {
@@ -215,14 +217,16 @@
      <table id="interventions-table">
         <thead>
         
-            <tr>
-                <th onclick="sortInterventions(0)" data-sort="intervention_id">Code Intervention</th>
-                <th onclick="sortInterventions(1)" data-sort="date_intervention">Date Intervention</th>
-                <th onclick="sortInterventions(2)" data-sort="client_name">Nom du client</th>
-                <th onclick="sortInterventions(3)" data-sort="intervenant_name">Nom de l'intervenant</th>
-                <th onclick="sortInterventions(4)" data-sort="adresse">Adresse complète</th>
-                <th onclick="sortInterventions(5)" data-sort="degre_urgence_type">Degré d'urgence</th>
-                <th onclick="sortInterventions(6)" data-sort="status_type">Statut</th>
+            <tr>   
+
+                <th onclick="sortInterventions(0)" data-sort="nature_intervention">Nature Intervention</th>
+                <th onclick="sortInterventions(1)" data-sort="intervention_id">Code Intervention</th>
+                <th onclick="sortInterventions(2)" data-sort="date_intervention">Date Intervention</th>
+                <th onclick="sortInterventions(3)" data-sort="client_name">Nom du client</th>
+                <th onclick="sortInterventions(4)" data-sort="intervenant_name">Nom de l'intervenant</th>
+                <th onclick="sortInterventions(5)" data-sort="adresse">Adresse complète</th>
+                <th onclick="sortInterventions(6)" data-sort="degre_urgence_type">Degré d'urgence</th>
+                <th onclick="sortInterventions(7)" data-sort="status_type">Statut</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -237,6 +241,7 @@
     {% endif %}
     
     <tr class="{{ status_class }}">
+        <td>{{ intervention['nature_intervention'] }}</td>
         <td>{{ intervention['intervention_id'] }}</td>
         <td>
            

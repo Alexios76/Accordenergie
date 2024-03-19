@@ -15,7 +15,7 @@ if (!$user_id) {
 $selectedStatus = isset($_POST['selected_status']) ? $_POST['selected_status'] : null;
 
 // Requête SQL de base pour récupérer toutes les interventions
-$sql = "SELECT i.*, u.name AS intervenant_name, u.surname AS intervenant_surname, c.name AS client_name, c.surname AS client_surname, d.type AS degre_urgence_type, s.type AS status_type 
+$sql = "SELECT i.*, u.name AS intervenant_name, u.surname AS intervenant_surname, c.name AS client_name, c.surname AS client_surname, d.type AS degre_urgence_type, s.type AS status_type, i.nature_intervention AS nature_intervention
         FROM intervention i 
         INNER JOIN user u ON i.id_intervenant = u.user_id 
         INNER JOIN degreurgence d ON i.degre_urgence_id = d.degre_urgence_id 

@@ -1,164 +1,298 @@
-    {% extends 'base_auth.html.twig' %}
+{% extends 'base_auth.html.twig' %}
 
-    {% block body %}
+{% block body %}
 
-    {% block styles %}
-    <style>
-        body {
-            background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
-            font-family: Arial, sans-serif;
+{% block styles %}
+<style>
+    body {
+        background: #f2f2f2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #218838; /* Couleur du titre */
+        font-size: 24px; /* Taille de police du titre */
+    }
+
+    table {
+        width: 120%;
+        margin-left: -120px;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    th {
+        background-color: #8bbd7c;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    img {
+        max-width: 40px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        margin-left: 10px;
+    }
+
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.action-buttons button {
+    padding: 8px 12px;
+    border: none; /* Retirer la bordure */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #fff;
+}
+
+.action-buttons button:hover {
+    background-color: #dddddd;
+}
+
+
+    .return-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .return-button a {
+        color: #8bbd7c;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .add-intervention-button {
+        float: right;
+        margin-bottom: 20px;
+        margin-right: -100px;
+    }
+
+    .add-intervention-button a {
+        background-color:  #8bbd7c;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .add-intervention-button a:hover {
+        background-color: #218838;
+    }
+
+    .status-type {
+        white-space: nowrap;
+    }
+
+    /* Ajout pour le formulaire de filtrage */
+    .filter-form-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .filter-form {
+        text-align: center;
+    }
+
+    .filter-form label {
+        font-weight: bold;
+    }
+
+    .filter-form select {
+        padding: 8px 12px;
+        border-radius: 4px;
+    }
+
+    .filter-form button {
+        padding: 8px 20px;
+        border-radius: 4px;
+        background-color: #8bbd7c;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .filter-form button:hover {
+        background-color: #218838;
+    }
+   .annuler {
+    border-left: 5px solid red; /* Ajoute une bordure rouge à gauche pour indiquer l'annulation */
+}
+
+.cloturer {
+    background-color: #dcdcdc; /* Couleur de fond plus claire pour les interventions clôturées */
+    color: #555; /* Couleur du texte assombri pour une lisibilité adéquate */
+}
+
+
+</style>
+{% endblock %}
+{% block javascript %}
+    <script>
+        function sortInterventions(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("interventions-table");
+            switching = true;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+
+                    x = rows[i].getElementsByTagName("td")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+
+                    // Compare les valeurs, en ignorant la casse
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
         }
+    </script>
+{% endblock %}
 
-        .table-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<div class="container">
+    <h1>Interventions</h1>
 
-        .table {
-            width: 80%;
-            max-width: 100%;
-            margin-bottom: 1rem;
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .table th,
-        .table td {
-            padding: 0.5rem;
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
-            background-color: #8bbd7c;
-            color: #fff;
-        }
-
-        .table tbody+tbody {
-            border-top: 2px solid #dee2e6;
-        }
-
-        .table tbody tr:nth-of-type(even) {
-            background-color: #f9f9f9;
-        }
-
-        .table td {
-            border-top: 1px solid #dee2e6;
-        }
-
-        .table tbody tr:last-of-type td {
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        .table tbody tr:last-of-type td:first-child {
-            border-bottom-left-radius: 10px;
-        }
-
-        .table tbody tr:last-of-type td:last-child {
-            border-bottom-right-radius: 10px;
-        }
-
-        .return-button {
-            margin-top: 20px;
-            text-align: center;
-            margin-top: 150px;
-        }
-
-        .return-button a {
-            color: grey;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        /* Ajout de styles pour les boutons d'action */
-        .action-buttons {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .action-buttons form {
-            display: inline;
-        }
-
-        .action-buttons button {
-            margin: 0 3px;
-        }
-    </style>
-    {% endblock %}
-
-    <div class="table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Date Intervention</th>
-                    <th>Nature Intervention</th>
-                    <th>Description</th>
-                    <th>Street and Number</th>
-                    <th>Address Complement</th>
-                    <th>Postal Code</th>
-                    <th>City</th>
-                    <th>Society</th>
-                    <th>Degree of Urgency</th>
-                    <th>Status</th>
-                    <th>ID Client</th>
-                    <th>ID Standardiste</th>
-                    <th>ID Intervenant</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Action</th> <!-- Nouvelle colonne pour les boutons d'action -->
-                </tr>
-            </thead>
-            <tbody>
-                {% for intervention in interventions %}
-                <tr>
-                    <td>{{ intervention['intervention_id'] }}</td>
-                    <td>{{ intervention['date_intervention'] }}</td>
-                    <td>{{ intervention['nature_intervention'] }}</td>
-                    <td>{{ intervention['description'] }}</td>
-                    <td>{{ intervention['street_and_number'] }}</td>
-                    <td>{{ intervention['adress_complement'] }}</td>
-                    <td>{{ intervention['code_postal'] }}</td>
-                    <td>{{ intervention['ville'] }}</td>
-                    <td>{{ intervention['societe'] }}</td>
-                    <td>{{ intervention['degre_urgence_id'] }}</td>
-                    <td>{{ intervention['status_id'] }}</td>
-                    <td>{{ intervention['user_id'] }}</td>
-                    <td>{{ intervention['id_standardiste'] }}</td>
-                    <td>{{ intervention['id_intervenant'] }}</td>
-                    <td>{{ intervention['name'] }}</td>
-                    <td>{{ intervention['surname'] }}</td>
-                    <td class="action-buttons">
-                         <form method="get" action="crud.php" class="d-inline">
-                         <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
-                         <button type="submit" class="btn btn-secondary"><span class="bi bi-eye"></span></button>
-                        </form>
-                         <form method="post" action="crud.php" class="d-inline">
-                         <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
-                         <button type="submit" class="btn btn-primary"><span class="bi bi-pencil"></span></button>
-                         </form>
-                        <form method="post" action="crud.php" class="d-inline">
-                            <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
-                            <button type="submit" class="btn btn-danger"><span class="bi bi-trash"></span></button>
-                        </form>
-                    </td>
-
-
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="return-button">
-            <a href="interventions.php">Retour</a>
-        </div>
+   <div class="filter-form-container">
+        <form method="post" action="interventions.php" class="filter-form">
+            <select name="selected_status" id="selected_status">
+                <option value="">Tous les statuts</option>
+                <option value="en attente" {% if selected_status == 'en attente' %}selected{% endif %}>En attente</option>
+                <option value="en cours" {% if selected_status == 'en cours' %}selected{% endif %}>En cours</option>
+                <option value="validee" {% if selected_status == 'validee' %}selected{% endif %}>Validée</option>
+                <option value="annuler" {% if selected_status == 'annuler' %}selected{% endif %}>Annuler</option>
+                <option value="cloturer" {% if selected_status == 'cloturer' %}selected{% endif %}>Cloturer</option>
+            </select>
+            <button type="submit">Filtrer</button>
+        </form>
+      
     </div>
 
-    {% endblock %}
+
+    <div class="add-intervention-button">
+        <a href="add_intervention.php">
+            <span class="bootstrap-icon bi bi-plus-circle"></span> Ajouter une intervention
+        </a>
+    </div>
+
+   
+     <table id="interventions-table">
+        <thead>
+        
+            <tr>   
+
+                <th onclick="sortInterventions(0)" data-sort="nature_intervention">Nature Intervention</th>
+                <th onclick="sortInterventions(1)" data-sort="intervention_id">Code Intervention</th>
+                <th onclick="sortInterventions(2)" data-sort="date_intervention">Date Intervention</th>
+                <th onclick="sortInterventions(3)" data-sort="client_name">Nom du client</th>
+                <th onclick="sortInterventions(4)" data-sort="intervenant_name">Nom de l'intervenant</th>
+                <th onclick="sortInterventions(5)" data-sort="adresse">Adresse complète</th>
+                <th onclick="sortInterventions(6)" data-sort="degre_urgence_type">Degré d'urgence</th>
+                <th onclick="sortInterventions(7)" data-sort="status_type">Statut</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+       <tbody>
+{% set today = "now"|date("Y-m-d") %}
+{% for intervention in interventions %}
+    {% set status_class = '' %}
+    {% if intervention['status_type'] == 'annuler' %}
+        {% set status_class = 'annuler' %}
+    {% elseif intervention['status_type'] == 'cloturer' %}
+        {% set status_class = 'cloturer' %}
+    {% endif %}
+    
+    <tr class="{{ status_class }}">
+        <td>{{ intervention['nature_intervention'] }}</td>
+        <td>{{ intervention['intervention_id'] }}</td>
+        <td>
+           
+            {{ intervention['date_intervention'] }}
+             {% if intervention['date_intervention'] == today %}
+                <span id="todayMessage" style="color: red; font-weight: bold; font-size:12px;">Aujourd'hui</span><br>
+                <script>
+                    setInterval(function(){
+                        var element = document.getElementById("todayMessage");
+                        element.style.visibility = (element.style.visibility == "visible") ? "hidden" : "visible";
+                    }, 500);
+                </script>
+            {% endif %}
+        </td>
+        <td class="status-type">{{ intervention['client_name'] }} {{ intervention['client_surname'] }}</td> 
+        <td>{{ intervention['intervenant_name'] }} {{ intervention['intervenant_surname'] }}</td>
+        <td>{{ intervention['street_and_number'] }} {{ intervention['code_postal'] }}, {{ intervention['ville'] }}</td>
+        <td><img src="../{{ intervention['degre_urgence_type'] }}" alt="Degré d'urgence" ></td>
+        <td class="status-type">{{ intervention['status_type'] }}</td>
+        <td class="action-buttons">
+            {% if intervention['status_type'] == 'cloturer' %}
+                <span style="color: red; font-weight: bold;">Cloturer</span>
+            {% elseif intervention['status_type'] == 'annuler' %}
+                <span style="color: red; font-weight: bold; margin-bottom: 15px;">Annuler</span>
+            {% else %}
+                <form method="get" action="crud.php" class="d-inline">
+                    <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
+                    <button type="submit"><span class="bi bi-eye"></span></button>
+                </form>
+                <form method="post" action="update_intervention.php" class="d-inline">
+                    <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
+                    <button type="submit"><span class="bi bi-pencil"></span></button>
+                </form>
+                <form method="post" action="delete_intervention.php" class="d-inline">
+                    <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
+                    <button type="submit"><span class="bi bi-trash"></span></button>
+                </form>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+
+
+</tbody>
+
+    </table>
+
+    <div class="return-button">
+        <a href="../accueil.php">Retour</a>
+    </div>
+</div>
+
+{% endblock %}

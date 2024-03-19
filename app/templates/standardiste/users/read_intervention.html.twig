@@ -1,0 +1,150 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block body %}
+
+{% block styles %}
+    <style>
+        body {
+            background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+            font-family: Arial, sans-serif;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .table {
+            width: 80%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th,
+        .table td {
+            padding: 0.5rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #8bbd7c;
+            color: #fff;
+        }
+
+        .table tbody+tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+        .table tbody tr:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table td {
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table tbody tr:last-of-type td {
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody tr:last-of-type td:first-child {
+            border-bottom-left-radius: 10px;
+        }
+
+        .table tbody tr:last-of-type td:last-child {
+            border-bottom-right-radius: 10px;
+        }
+
+        .return-button {
+            margin-top: 20px;
+            text-align: center;
+            margin-top: 150px;
+        }
+
+        .return-button a {
+            color: grey;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* Ajout de styles pour les boutons d'action */
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .action-buttons form {
+            display: inline;
+        }
+
+        .action-buttons button {
+            margin: 0 3px;
+        }
+    </style>
+{% endblock %}
+
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date Intervention</th>
+                <th>Nature Intervention</th>
+                <th>Description</th>
+                <th>Street and Number</th>
+                <th>Address Complement</th>
+                <th>Postal Code</th>
+                <th>City</th>
+                <th>Society</th>
+                <th>Degree of Urgency</th>
+                <th>Status</th>
+                <th>ID Client</th>
+                <th>ID Standardiste</th>
+                <th>ID Intervenant</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+         
+            <tr>
+                <td>{{ intervention['intervention_id'] }}</td>
+                <td>{{ intervention['date_intervention'] }}</td>
+                <td>{{ intervention['nature_intervention'] }}</td>
+                <td>{{ intervention['description'] }}</td>
+                <td>{{ intervention['street_and_number'] }}</td>
+                <td>{{ intervention['adress_complement'] }}</td>
+                <td>{{ intervention['code_postal'] }}</td>
+                <td>{{ intervention['ville'] }}</td>
+                <td>{{ intervention['societe'] }}</td>
+                <td>{{ intervention['degre_urgence_id'] }}</td>
+                <td>{{ intervention ['status_id'] }}</td>
+                <td>{{ intervention['user_id'] }}</td>
+                <td>{{ intervention['id_standardiste'] }}</td>
+                <td>{{ intervention['id_intervenant'] }}</td>
+                <td>{{ intervention['name'] }}</td>
+                <td>{{ intervention['surname'] }}</td>
+                
+            </tr>
+      
+        </tbody>
+    </table>
+    <div class="return-button">
+        <a href="interventions.php">Retour</a>
+    </div>
+</div>
+
+{% endblock %}
