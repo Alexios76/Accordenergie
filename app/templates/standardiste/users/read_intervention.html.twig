@@ -98,53 +98,67 @@
         .comment-text {
             margin-top: 10px;
         }
-            .progress-bar-container {
-    margin: 20px;
-}
+         .progress-bar {
+            height: 20px;
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-.progress-bar {
-    height: 20px;
-    width: 100%;
-    background-color: #f2f2f2;
-}
+        .progress-bar-inner {
+            height: 100%;
+            background-color: transparent;
+            transition: width 0.3s ease;
+        }
 
-.progress {
-    height: 100%;
-    width: 0%;
-}
+        .progress-bar-inner.en-cours {
+            background-color: yellow;
+            width: 70%;
+        }
 
-.status-label {
-    margin-top: 5px;
-    text-align: center;
-}
+        .progress-bar-inner.en-attente {
+            background-color: orange;
+            width: 30%;
+        }
 
-/* Styles spécifiques aux états de progression */
-.progress-bar-container.en-cours .progress {
-    background-color: #FFA500; /* Jaune */
-}
+        .progress-bar-inner.validee {
+            background-color: green;
+            width: 100%;
+        }
 
-.progress-bar-container.en-attente .progress {
-    background-color: #87CEEB; /* Bleu clair */
-}
+        .progress-bar-inner.annuler {
+            background-color: red;
+            width: 100%;
+        }
 
-.progress-bar-container.valide .progress {
-    background-color: #4CAF50; /* Vert */
-}
-
-.status-label {
-    margin-top: 5px;
-    text-align: center;
-}
-
+        .progress-bar-inner.cloturer {
+            background-color: black;
+        }
+        
     </style>
 <h1>Détails de l'intervention</h1>
-<div id="progress-bar-container" class="progress-bar-container">
-    <div id="progress-bar" class="progress-bar">
-        <div id="progress" class="progress"></div>
-    </div>
-    <div id="status-label" class="status-label"></div>
-</div>
-
+   {% set status_class = '' %}
+        {% set progression_class = '' %}
+        {% if intervention['status_type'] == 'en cours' %}
+            {% set status_class = 'en-cours' %}
+            {% set progression_class = 'en-cours' %}
+        {% elseif intervention['status_type'] == 'en attente' %}
+            {% set status_class = 'en-attente' %}
+            {% set progression_class = 'en-attente' %}
+        {% elseif intervention['status_type'] == 'validee' %}
+            {% set status_class = 'validee' %}
+            {% set progression_class = 'validee' %}
+        {% elseif intervention['status_type'] == 'annuler' %}
+            {% set status_class = 'annuler' %}
+            {% set progression_class = 'annuler' %}
+        {% elseif intervention['status_type'] == 'cloturer' %}
+            {% set status_class = 'cloturer' %}
+            {% set progression_class = 'cloturer' %}
+        {% endif %}
+<div class="progress-bar">
+                    <div class="progress-bar-inner {{ progression_class }}"></div>
+                </div>
 <table>
     <thead>
         <tr>
@@ -164,6 +178,7 @@
     </thead>
     <tbody>
         <tr>
+        
             <td>{{ intervention.intervention_id }}</td>
             <td>{{ intervention.date_intervention }}</td>
             <td>{{ intervention.nature_intervention }}</td>
@@ -201,46 +216,36 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    // Fonction pour mettre à jour la barre de progression
-    function updateProgressBar(statusType) {
-        console.log("Statut récupéré:", statusType); // Débogage
+    $(document).ready(function() {
+       
+        $('#comment-trigger').click(function() {
+           
+            $('.comment-form').toggle();
 
-        var progress = 0;
-        var statusLabel = '';
+            $('.success-message').text('');
+        });
 
-        // Retirer toutes les classes associées à la progression
-        $('#progress-bar').removeClass('en-cours en-attente valide');
-
-        switch (statusType.toLowerCase()) { // Convertir en minuscules pour gérer les cas de texte
-            case 'en cours':
-                progress = 20;
-                statusLabel = 'En cours';
-                $('#progress-bar').addClass('en-cours');
-                break;
-            case 'en attente':
-                progress = 40;
-                statusLabel = 'En attente';
-                $('#progress-bar').addClass('en-attente');
-                break;
-            case 'validee': // Corriger la casse
-                progress = 100;
-                statusLabel = 'Validé';
-                $('#progress-bar').addClass('valide');
-                break;
-            default:
-                progress = 0;
-                statusLabel = 'Non défini';
-        }
-
-        $('#progress').css('width', progress + '%');
-        $('#status-label').text(statusLabel);
-    }
-
-    // Initialisation de la barre de progression
-    updateProgressBar('{{ intervention.status_type }}');
-});
-
+        
+        $('#commentForm').submit(function(event) {
+            event.preventDefault(); 
+            var formData = $(this).serialize(); 
+            $.ajax({
+                type: 'POST',
+                url: 'read_intervention.php', 
+                data: formData,
+                success: function(response) {
+                    
+                    $('.success-message').text('Commentaire envoyé avec succès !').css('color', 'green');
+                
+                    $('.comment-form').hide();
+                },
+                error: function(xhr, status, error) {
+                    
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
 </script>
 
 
