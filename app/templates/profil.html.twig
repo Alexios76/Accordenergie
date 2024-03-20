@@ -1,0 +1,128 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block body %}
+
+{% block styles %}
+<style>
+           body {
+        background: -webkit-linear-gradient(to right, #5b9758, #8bbd7c, #3e7c4d, #266e3b);
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        height: 100vh; 
+    }
+
+    nav {
+        width: 100%; /* Ajuster la largeur de la barre de navigation */
+        background-color: black;
+        padding: 10px 20px;
+        box-sizing: border-box;
+    }
+
+    .company-name {
+        font-size: 24px;
+        color: white;
+    }
+
+    .nav-links {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-links li a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-bottom: 2px solid transparent;
+        transition: border-bottom-color 0.3s;
+    }
+
+    .nav-links li a:hover {
+        border-bottom-color: white;
+    }
+
+    form {
+        width: 140%; /* Ajuster la largeur du formulaire */
+        background-color: #fff; /* Couleur de fond du formulaire */
+        padding: 20px;
+        margin-top: 20px; /* Espacement entre la barre de navigation et le formulaire */
+        border-radius: 10px;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: ; /* Couleur du texte du titre */
+        text-align: center;
+        margin-bottom: 30px; /* Espacement en bas du titre */
+        margin-top: 30px;
+        margin-right: -80px;
+    }
+
+    label {
+        color: #333; /* Couleur du texte des libellés */
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc; /* Bordure des champs de texte */
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #8bbd7c; /* Couleur de fond du bouton */
+        color: #fff; /* Couleur du texte du bouton */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .return-button {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .return-button a {
+        
+        color: grey;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font-size: 13px;
+    }
+</style>
+{% endblock %}
+
+<h2>Mise à jour utilisateur</h2>
+
+{% if flash_message %}
+<div style="background-color:{{ flash_message.type is same as('success') ? 'green' : 'red' }}
+; color: white; padding: 10px; margin-bottom: 10px;">
+    {{ flash_message.message }}
+</div>
+{% endif %}
+
+<form action="update.php" method="POST">
+    <input type="hidden" name="user_id" value="{{ user.user_id }}">
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" value="{{ user.email }}"><br>
+    <label for="name">Nom:</label><br>
+    <input type="text" id="name" name="name" value="{{ user.name }}"><br>
+    <label for="surname">Prénom:</label><br>
+    <input type="text" id="surname" name="surname" value="{{ user.surname }}"><br>
+    <label for="phone_number">Numéro de téléphone:</label><br>
+    <input type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}"><br>
+ 
+    <input type="submit" value="Submit">
+    <div class="return-button">
+        <a href="accueil.php">Retour</a>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,202 +1,238 @@
-{% extends 'base_auth.html.twig' %}
+    {% extends 'base_auth.html.twig' %}
 
-{% block body %}
+    {% block body %}
 
-{% block styles %}
-<style>
-    body {
-        background: #f2f2f2;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
+    {% block styles %}
+    <style>
+        body {
+            background: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-        width: 80%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #218838; /* Couleur du titre */
-        font-size: 24px; /* Taille de police du titre */
-    }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #218838; /* Couleur du titre */
+            font-size: 24px; /* Taille de police du titre */
+        }
 
-    table {
-        width: 120%;
-        margin-left: -120px;
-        border-collapse: collapse;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
-    }
-
-    th, td {
-        padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #dddddd;
-    }
-
-    th {
-        background-color: #8bbd7c;
-        color: #fff;
-        font-weight: bold;
-    }
-
-    img {
-        max-width: 40px;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-        margin-left: 10px;
-    }
-
-.action-buttons {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-}
-
-.action-buttons button {
-    padding: 8px 12px;
-    border: none; /* Retirer la bordure */
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    background-color: #fff;
-}
-
-.action-buttons button:hover {
-    background-color: #dddddd;
-}
-
-
-    .return-button {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .return-button a {
-        color: #8bbd7c;
-        text-decoration: none;
-        font-size: 16px;
-    }
-
-    .add-intervention-button {
-        float: right;
-        margin-bottom: 20px;
-        margin-right: -100px;
-    }
-
-    .add-intervention-button a {
-        background-color:  #8bbd7c;
-        color: #fff;
-        text-decoration: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-        display: flex;
-        align-items: center;
-    }
-
-    .add-intervention-button a:hover {
-        background-color: #218838;
-    }
-
-    .status-type {
-        white-space: nowrap;
-    }
-
-    /* Ajout pour le formulaire de filtrage */
-    .filter-form-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .filter-form {
-        text-align: center;
-    }
-
-    .filter-form label {
-        font-weight: bold;
-    }
-
-    .filter-form select {
-        padding: 8px 12px;
-        border-radius: 4px;
-    }
-
-    .filter-form button {
-        padding: 8px 20px;
-        border-radius: 4px;
-        background-color: #8bbd7c;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .filter-form button:hover {
-        background-color: #218838;
-    }
-   .annuler {
-    border-left: 5px solid red; /* Ajoute une bordure rouge à gauche pour indiquer l'annulation */
-}
-
-.cloturer {
-    background-color: #dcdcdc; /* Couleur de fond plus claire pour les interventions clôturées */
-    color: #555; /* Couleur du texte assombri pour une lisibilité adéquate */
-}
-
- .progress-bar {
-            height: 20px;
-            width: 100%;
-            background-color: #f0f0f0;
-            border-radius: 10px;
+        table {
+            width: 120%;
+            margin-left: -120px;
+            border-collapse: collapse;
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
         }
 
-        .progress-bar-inner {
-            height: 100%;
-            background-color: transparent;
-            transition: width 0.3s ease;
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
         }
 
-        .progress-bar-inner.en-cours {
-            background-color: yellow;
-            width: 70%;
+        th {
+            background-color: #8bbd7c;
+            color: #fff;
+            font-weight: bold;
+        }
+        td {
+            background-color: white;
         }
 
-        .progress-bar-inner.en-attente {
-            background-color: orange;
-            width: 30%;
-        }
-
-        .progress-bar-inner.validee {
-            background-color: green;
-            width: 100%;
-        }
-
-        .progress-bar-inner.annuler {
-            background-color: red;
-            width: 100%;
-        }
-
-        .progress-bar-inner.cloturer {
-            background-color: black;
+        img {
+            max-width: 40px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            margin-left: 10px;
         }
 
 
-</style>
-{% endblock %}
-{% block javascript %}
+
+        .return-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .return-button a {
+            color: #8bbd7c;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .add-intervention-button {
+            float: right;
+            margin-bottom: 20px;
+            margin-right: -100px;
+        }
+
+        .add-intervention-button a {
+            background-color:  #8bbd7c;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .add-intervention-button a:hover {
+            background-color: #218838;
+        }
+
+        .status-type {
+            white-space: nowrap;
+        }
+
+        /* Ajout pour le formulaire de filtrage */
+        .filter-form-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-form {
+            text-align: center;
+        }
+
+        .filter-form label {
+            font-weight: bold;
+        }
+
+        .filter-form select {
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .filter-form button {
+            padding: 8px 20px;
+            border-radius: 4px;
+            background-color: #8bbd7c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-form button:hover {
+            background-color: #218838;
+        }
+    .annuler {
+        border-left: 5px solid red; /* Ajoute une bordure rouge à gauche pour indiquer l'annulation */
+    }
+
+    .cloturer {
+        background-color: #dcdcdc; /* Couleur de fond plus claire pour les interventions clôturées */
+        color: #555; /* Couleur du texte assombri pour une lisibilité adéquate */
+    }
+
+    .progress-bar {
+                height: 20px;
+                width: 100%;
+                background-color: #f0f0f0;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .progress-bar-inner {
+                height: 100%;
+                background-color: transparent;
+                transition: width 0.3s ease;
+            }
+
+            .progress-bar-inner.en-cours {
+                background-color: yellow;
+                width: 70%;
+            }
+
+            .progress-bar-inner.en-attente {
+                background-color: orange;
+                width: 30%;
+            }
+
+            .progress-bar-inner.validee {
+                background-color: green;
+                width: 100%;
+            }
+
+            .progress-bar-inner.annuler {
+                background-color: red;
+                width: 100%;
+            }
+
+            .progress-bar-inner.cloturer {
+                background-color: black;
+            }
+            .action-buttons form {
+            display: inline-block; /* Affichage en ligne pour les formulaires */
+            margin-right: 5px; /* Marge entre les boutons */
+        }
+
+        .action-buttons form button {
+            display: inline-block; /* Affichage en ligne pour les boutons */
+        }
+            .action-buttons button {
+            background-color: #007bff; /* Couleur de fond pour les boutons */
+            color: #fff; /* Couleur du texte */
+            border: none;
+            border-radius: 4px;
+            padding: 2px 5px;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: #0056b3; /* Couleur de fond au survol */
+        }
+
+        .action-buttons button .bi {
+            vertical-align: middle; /* Alignement vertical pour les icônes Bootstrap */
+            margin-right: 3px; /* Marge à droite des icônes */
+        }
+
+        .action-buttons button.read {
+            background-color: white;
+            color:black; /* Couleur de fond pour le bouton "Read" */
+        }
+
+        .action-buttons button.update {
+            background-color: white;
+            color:black; /* Couleur de fond pour le bouton "Update" */
+        }
+
+        .action-buttons button.delete {
+            background-color:white;
+            color:black; /* Couleur de fond pour le bouton "Delete" */
+        }
+
+        .action-buttons .action-buttons-container {
+            display: flex; /* Utilisation de Flexbox pour aligner les éléments horizontalement */
+        }
+
+        .action-buttons .action-buttons-container form {
+            margin-right: 5px; /* Marge entre les boutons */
+        }
+
+    </style>
+    {% endblock %}
+    {% block javascript %}
     <script>
+        var ascending = true; // Variable pour suivre l'état du tri
+
         function sortInterventions(columnIndex) {
             var table, rows, switching, i, x, y, shouldSwitch;
             table = document.getElementById("interventions-table");
@@ -213,9 +249,18 @@
                     y = rows[i + 1].getElementsByTagName("td")[columnIndex];
 
                     // Compare les valeurs, en ignorant la casse
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
+                    var xValue = x.innerHTML.toLowerCase();
+                    var yValue = y.innerHTML.toLowerCase();
+                    if (ascending) {
+                        if (xValue > yValue) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        if (xValue < yValue) {
+                            shouldSwitch = true;
+                            break;
+                        }
                     }
                 }
                 if (shouldSwitch) {
@@ -223,54 +268,58 @@
                     switching = true;
                 }
             }
+
+            // Inverse l'état du tri
+            ascending = !ascending;
         }
     </script>
-{% endblock %}
 
-<div class="container">
-    <h1>Interventions</h1>
+    {% endblock %}
 
-   <div class="filter-form-container">
-        <form method="post" action="interventions.php" class="filter-form">
-            <select name="selected_status" id="selected_status">
-                <option value="">Tous les statuts</option>
-                <option value="en attente" {% if selected_status == 'en attente' %}selected{% endif %}>En attente</option>
-                <option value="en cours" {% if selected_status == 'en cours' %}selected{% endif %}>En cours</option>
-                <option value="validee" {% if selected_status == 'validee' %}selected{% endif %}>Validée</option>
-                <option value="annuler" {% if selected_status == 'annuler' %}selected{% endif %}>Annuler</option>
-                <option value="cloturer" {% if selected_status == 'cloturer' %}selected{% endif %}>Cloturer</option>
-            </select>
-            <button type="submit">Filtrer</button>
-        </form>
-      
-    </div>
+    <div class="container">
+        <h1>Interventions</h1>
 
-
-    <div class="add-intervention-button">
-        <a href="add_intervention.php">
-            <span class="bootstrap-icon bi bi-plus-circle"></span> Ajouter une intervention
-        </a>
-    </div>
-
-   
-     <table id="interventions-table">
-        <thead>
+    <div class="filter-form-container">
+            <form method="post" action="interventions.php" class="filter-form">
+                <select name="selected_status" id="selected_status">
+                    <option value="">Tous les statuts</option>
+                    <option value="en attente" {% if selected_status == 'en attente' %}selected{% endif %}>En attente</option>
+                    <option value="en cours" {% if selected_status == 'en cours' %}selected{% endif %}>En cours</option>
+                    <option value="validee" {% if selected_status == 'validee' %}selected{% endif %}>Validée</option>
+                    <option value="annuler" {% if selected_status == 'annuler' %}selected{% endif %}>Annuler</option>
+                    <option value="cloturer" {% if selected_status == 'cloturer' %}selected{% endif %}>Cloturer</option>
+                </select>
+                <button type="submit">Filtrer</button>
+            </form>
         
-            <tr>   
+        </div>
 
-                <th onclick="sortInterventions(0)" data-sort="nature_intervention">Nature Intervention</th>
-                <th onclick="sortInterventions(1)" data-sort="intervention_id">Code Intervention</th>
-                <th onclick="sortInterventions(2)" data-sort="date_intervention">Date Intervention</th>
-                <th onclick="sortInterventions(3)" data-sort="client_name">Nom du client</th>
-                <th onclick="sortInterventions(4)" data-sort="intervenant_name">Nom de l'intervenant</th>
-                <th onclick="sortInterventions(5)" data-sort="adresse">Adresse complète</th>
-                <th onclick="sortInterventions(6)" data-sort="degre_urgence_type">Degré d'urgence</th>
-                <th onclick="sortInterventions(7)" data-sort="status_type">Statut</th>
-                 <th>Progression</th>
-                <th>Action</th>
-            </tr>
-                   </thead>
-           <tbody>
+
+        <div class="add-intervention-button">
+            <a href="add_intervention.php">
+                <span class="bootstrap-icon bi bi-plus-circle"></span> Ajouter une intervention
+            </a>
+        </div>
+
+    
+        <table id="interventions-table">
+            <thead>
+            
+                <tr>   
+
+                    <th onclick="sortInterventions(0)" data-sort="nature_intervention">Nature Intervention</th>
+                    <th onclick="sortInterventions(1)" data-sort="intervention_id">Code Intervention</th>
+                    <th onclick="sortInterventions(2)" data-sort="date_intervention">Date Intervention</th>
+                    <th onclick="sortInterventions(3)" data-sort="client_name">Nom du client</th>
+                    <th onclick="sortInterventions(4)" data-sort="intervenant_name">Nom de l'intervenant</th>
+                    <th onclick="sortInterventions(5)" data-sort="adresse">Adresse complète</th>
+                    <th onclick="sortInterventions(6)" data-sort="degre_urgence_type">Degré d'urgence</th>
+                    <th onclick="sortInterventions(7)" data-sort="status_type">Statut</th>
+                    <th>Progression</th>
+                    <th>Action</th>
+                </tr>
+                    </thead>
+            <tbody>
     {% set today = "now"|date("Y-m-d") %}
     {% for intervention in interventions %}
         {% set status_class = '' %}
@@ -292,63 +341,66 @@
             {% set progression_class = 'cloturer' %}
         {% endif %}
         
-        <tr class="{{ status_class }}">
-            <td>{{ intervention['nature_intervention'] }}</td>
-            <td>{{ intervention['intervention_id'] }}</td>
-            <td>
-               
-                {{ intervention['date_intervention'] }}
-                 {% if intervention['date_intervention'] == today %}
-                    <span id="todayMessage" style="color: red; font-weight: bold; font-size:12px;">Aujourd'hui</span><br>
-                    <script>
-                        setInterval(function(){
-                            var element = document.getElementById("todayMessage");
-                            element.style.visibility = (element.style.visibility == "visible") ? "hidden" : "visible";
-                        }, 500);
-                    </script>
-                {% endif %}
-            </td>
-            <td class="status-type">{{ intervention['client_name'] }} {{ intervention['client_surname'] }}</td> 
-            <td>{{ intervention['intervenant_name'] }} {{ intervention['intervenant_surname'] }}</td>
-            <td>{{ intervention['street_and_number'] }} {{ intervention['code_postal'] }}, {{ intervention['ville'] }}</td>
-            <td><img src="../{{ intervention['degre_urgence_type'] }}" alt="Degré d'urgence" ></td>
-            <td class="status-type">{{ intervention['status_type'] }}</td>
-            <td>
-                <div class="progress-bar">
-                    <div class="progress-bar-inner {{ progression_class }}"></div>
-                </div>
-            </td>
+    <tr class="{{ status_class }}">
+        <td>{{ intervention['nature_intervention'] }}</td>
+        <td>{{ intervention['intervention_id'] }}</td>
+        <td>
+            {{ intervention['date_intervention'] }}
+            {% if intervention['date_intervention'] == today %}
+                <span id="todayMessage" style="color: red; font-weight: bold; font-size:12px;">Aujourd'hui</span><br>
+                <script>
+                    setInterval(function(){
+                        var element = document.getElementById("todayMessage");
+                        element.style.visibility = (element.style.visibility == "visible") ? "hidden" : "visible";
+                    }, 500);
+                </script>
+            {% endif %}
+        </td>
+        <td class="status-type">{{ intervention['client_name'] }} {{ intervention['client_surname'] }}</td> 
+        <td>{{ intervention['intervenant_name'] }} {{ intervention['intervenant_surname'] }}</td>
+        <td>{{ intervention['street_and_number'] }} {{ intervention['code_postal'] }}, {{ intervention['ville'] }}</td>
+        <td><img src="../{{ intervention['degre_urgence_type'] }}" alt="Degré d'urgence" ></td>
+        <td class="status-type">{{ intervention['status_type'] }}</td>
+        <td>
+            <div class="progress-bar">
+                <div class="progress-bar-inner {{ progression_class }}"></div>
+            </div>
+        </td>
             <td class="action-buttons">
-                {% if intervention['status_type'] == 'cloturer' %}
-                    <span style="color: red; font-weight: bold;">Cloturer</span>
-                {% elseif intervention['status_type'] == 'annuler' %}
-                    <span style="color: red; font-weight: bold; margin-bottom: 15px;">Annuler</span>
-                {% else %}
-                    <form method="get" action="crud.php" class="d-inline">
-                        <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
-                        <button type="submit"><span class="bi bi-eye"></span></button>
-                    </form>
-                    <form method="post" action="update_intervention.php" class="d-inline">
-                        <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
-                        <button type="submit"><span class="bi bi-pencil"></span></button>
-                    </form>
-                    <form method="post" action="delete_intervention.php" class="d-inline">
-                        <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
-                        <button type="submit"><span class="bi bi-trash"></span></button>
-                    </form>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
+        <div class="action-buttons-container"> <!-- Nouveau conteneur div -->
+            {% if intervention['status_type'] == 'cloturer' %}
+                <span style="color: red; font-weight: bold;">Cloturer</span>
+            {% elseif intervention['status_type'] == 'annuler' %}
+                <span style="color: red; font-weight: bold; margin-bottom: 15px;">Annuler</span>
+            {% else %}
+                <form method="get" action="crud.php" class="d-inline">
+                    <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
+                    <button type="submit" class="read"><span class="bi bi-eye"></span></button>
+                </form>
+                <form method="post" action="update_intervention.php" class="d-inline">
+                    <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
+                    <button type="submit" class="update"><span class="bi bi-pencil"></span></button>
+                </form>
+                <form method="post" action="delete_intervention.php" class="d-inline">
+                    <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
+                    <button type="submit" class="delete"><span class="bi bi-trash"></span></button>
+                </form>
+            {% endif %}
+        </div>
+    </td>
 
 
-</tbody>
+            </tr>
+        {% endfor %}
 
-    </table>
 
-    <div class="return-button">
-        <a href="../accueil.php">Retour</a>
+    </tbody>
+
+        </table>
+
+        <div class="return-button">
+            <a href="../accueil.php">Retour</a>
+        </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endblock %}

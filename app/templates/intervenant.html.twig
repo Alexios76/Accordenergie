@@ -202,11 +202,14 @@
                 <form method="post" action="intervenant.php">
                     <input type="hidden" name="id" value="{{ intervention['intervention_id'] }}">
                 <select name="status" onchange="console.log(this.value)">
-        {% for status in statuses %}
+    {% for status in statuses %}
+    {% if status['type'] in ['en cours', 'en attente', 'validee'] %}
         <option value="{{ status['status_id'] }}" {% if status['status_id'] == intervention['status_id'] %} selected {% endif %}>
             {{ status['type'] }}
         </option>
-        {% endfor %}
+    {% endif %}
+{% endfor %}
+
     </select>
 
                     <button type="submit">Mettre à jour le statut</button>

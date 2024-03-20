@@ -11,6 +11,15 @@ if (!$user_id) {
     exit();
 }
 
+try {
+    $stmt = $page->pdo->prepare("UPDATE intervention SET status_id = (SELECT status_id FROM statut WHERE type = 'cloturer') WHERE date_intervention < CURDATE()");
+    $stmt->execute();
+} catch (PDOException $e) {
+    // Gérer l'exception
+    die("Erreur lors de la mise à jour automatique du statut : " . $e->getMessage());
+}
+
+
 // Récupérer le statut sélectionné (si disponible)
 $selectedStatus = isset($_POST['selected_status']) ? $_POST['selected_status'] : null;
 

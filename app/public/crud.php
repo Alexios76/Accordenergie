@@ -24,42 +24,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redirection vers la page interventions.php
         header("Location: interventions.php");
         exit();
-    } elseif (isset($_POST['email'], $_POST['name'], $_POST['surname'], $_POST['phone_number'], $_POST['intervention_id'])) {
-        // Mise à jour des données de l'intervention (retirée de cette partie)
-        // Redirection vers la page interventions.php
-        header("Location: interventions.php");
-        exit();
+    } elseif (isset($_POST['id'])) { // Modification de cette condition pour traiter le formulaire de commentaire
+        $intervention_id = $_POST['id'];
+        if (isset($_POST['comment'])) {
+            $comment = $_POST['comment'];
+
+            try {
+                // Mettre à jour le commentaire dans la base de données
+                $stmt = $page->pdo->prepare("UPDATE intervention SET description = :comment WHERE intervention_id = :id");
+                $stmt->bindParam(':id', $intervention_id, PDO::PARAM_INT);
+                $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
+                $stmt->execute();
+
+                // Rediriger vers la page précédente après la mise à jour
+                header("Location: crud.php?id=$intervention_id");
+                exit();
+            } catch (PDOException $e) {
+                die("Erreur lors de la mise à jour du commentaire : " . $e->getMessage());
+            }
+        } else {
+            die("Le commentaire n'a pas été spécifié.");
+        }
     } else {
         echo "Requête non valide";
         exit();
     }
-} if (!isset($_POST['id']) && !isset($_GET['id'])) {
+}
+
+// Vérifiez si l'ID de l'intervention est spécifié
+if (!isset($_POST['id']) && !isset($_GET['id'])) {
     die("ID de l'intervention non spécifié.");
 }
-$intervention_id = isset($_POST['id']) ? $_POST['id'] : $_GET['id'];
 
-// Traiter le formulaire de commentaire s'il est soumis
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['comment'])) {
-        $comment = $_POST['comment'];
-        
-        try {
-            // Mettre à jour le commentaire dans la base de données
-            $stmt = $page->pdo->prepare("UPDATE intervention SET description = :comment WHERE intervention_id = :id");
-            $stmt->bindParam(':id', $intervention_id, PDO::PARAM_INT);
-            $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
-            $stmt->execute();
-            
-            // Rediriger vers la page précédente après la mise à jour
-            header("Location: read_intervention.php?id=$intervention_id");
-            exit();
-        } catch (PDOException $e) {
-            die("Erreur lors de la mise à jour du commentaire : " . $e->getMessage());
-        }
-    } else {
-        die("Le commentaire n'a pas été spécifié.");
-    }
-}
+$intervention_id = isset($_POST['id']) ? $_POST['id'] : $_GET['id'];
 
 // Récupérer les détails de l'intervention depuis la base de données
 $intervention = [];

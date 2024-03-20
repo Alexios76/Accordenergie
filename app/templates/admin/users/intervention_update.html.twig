@@ -1,84 +1,162 @@
 {% extends 'base_auth.html.twig' %}
 
 {% block body %}
+<style>
+    .form-control {
+        width: 250px;
+    }
 
-<div class="container">
-    <h1>Modifier l'intervention</h1>
-    <form method="post" action="update_intervention.php">
+    form {
+        text-align: center;
+    }
+
+    #pleine-largeur {
+        width: 100%;
+        height: -20px;
+        background-color: #eee; 
+    }
+
+    .center-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 89vh; 
+        width: 100%;
+
+        margin-top: -100px;
+    }
+    
+
+    .row {
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+
+    
+</style>
+   <h1 style="text-align:center; margin-top: 30px;">Modifier l'intervention</h1>
+<div class="container center-div">
+ 
+     <form method="post" action="update_intervention.php">
         <input type="hidden" name="intervention_id" value="{{ intervention['intervention_id'] }}">
-        <div class="form-group">
-            <label for="date_intervention">Date Intervention:</label>
-            <input type="date" class="form-control" id="date_intervention" name="date_intervention" value="{{ intervention['date_intervention'] }}">
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="date_intervention">Date Intervention:</label>
+                    <input type="date" class="form-control" id="date_intervention" name="date_intervention" value="{{ intervention['date_intervention'] }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="nature_intervention">Nature Intervention:</label>
+                    <input type="text" class="form-control" id="nature_intervention" name="nature_intervention" value="{{ intervention['nature_intervention'] }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="degre_urgence_id">Degree of Urgency:</label>
+                    <select class="form-control" id="degre_urgence_id" name="degre_urgence_id">
+                        {% for degree in degrees %}
+                            <option value="{{ degree['degre_urgence_id'] }}" {% if degree['degre_urgence_id'] == intervention['degre_urgence_id'] %} selected {% endif %}>
+                                {{ degree['degre_urgence_id'] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="nature_intervention">Nature Intervention:</label>
-            <input type="text" class="form-control" id="nature_intervention" name="nature_intervention" value="{{ intervention['nature_intervention'] }}">
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="street_and_number">Street and Number:</label>
+                    <input type="text" class="form-control" id="street_and_number" name="street_and_number" value="{{ intervention['street_and_number'] }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="adress_complement">Address Complement:</label>
+                    <input type="text" class="form-control" id="adress_complement" name="adress_complement" value="{{ intervention['adress_complement'] }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="status_id">Status:</label>
+                    <select class="form-control" id="status_id" name="status_id">
+                        {% for status in statusTypes %}
+                            <option value="{{ status['status_id'] }}" {% if status['status_id'] == intervention['status_id'] %} selected {% endif %}>
+                                {{ status['type'] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="code_postal">Postal Code:</label>
+                    <input type="text" class="form-control" id="code_postal" name="code_postal" value="{{ intervention['code_postal'] }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="ville">City:</label>
+                    <input type="text" class="form-control" id="ville" name="ville" value="{{ intervention['ville'] }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="societe">Society:</label>
+                    <input type="text" class="form-control" id="societe" name="societe" value="{{ intervention['societe'] }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="user_id">User ID:</label>
+                    <input type="text" class="form-control" id="user_id" name="user_id" value="{{ intervention['user_id'] }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="id_standardiste">Standardiste:</label>
+                    <select class="form-control" id="id_standardiste" name="id_standardiste">
+                        {% for standardiste in standardistes %}
+                            <option value="{{ standardiste['user_id'] }}">{{ standardiste['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="id_intervenant">Intervenant:</label>
+                    <select class="form-control" id="id_intervenant" name="id_intervenant">
+                        {% for intervenant in intervenants %}
+                            <option value="{{ intervenant['user_id'] }}">{{ intervenant['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
        
-        <div class="form-group">
-            <label for="street_and_number">Street and Number:</label>
-            <input type="text" class="form-control" id="street_and_number" name="street_and_number" value="{{ intervention['street_and_number'] }}">
-        </div>
-        <div class="form-group">
-            <label for="adress_complement">Address Complement:</label>
-            <input type="text" class="form-control" id="adress_complement" name="adress_complement" value="{{ intervention['adress_complement'] }}">
-        </div>
-        <div class="form-group">
-            <label for="code_postal">Postal Code:</label>
-            <input type="text" class="form-control" id="code_postal" name="code_postal" value="{{ intervention['code_postal'] }}">
-        </div>
-        <div class="form-group">
-            <label for="ville">City:</label>
-            <input type="text" class="form-control" id="ville" name="ville" value="{{ intervention['ville'] }}">
-        </div>
-        <div class="form-group">
-            <label for="societe">Society:</label>
-            <input type="text" class="form-control" id="societe" name="societe" value="{{ intervention['societe'] }}">
-        </div>
- <div class="form-group">
-    <label for="degre_urgence_id">Degree of Urgency:</label>
-    <select class="form-control" id="degre_urgence_id" name="degre_urgence_id">
-        {% for degree in degrees %}
-            <option value="{{ degree['degre_urgence_id'] }}" {% if degree['degre_urgence_id'] == intervention['degre_urgence_id'] %} selected {% endif %}>
-                {{ degree['degre_urgence_id'] }}
-            </option>
-        {% endfor %}
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="status_id">Status:</label>
-    <select class="form-control" id="status_id" name="status_id">
-        {% for status in statusTypes %}
-            <option value="{{ status['status_id'] }}" {% if status['status_id'] == intervention['status_id'] %} selected {% endif %}>
-                {{ status['type'] }}
-            </option>
-        {% endfor %}
-    </select>
-</div>
-
-        <div class="form-group">
-            <label for="user_id">User ID:</label>
-            <input type="text" class="form-control" id="user_id" name="user_id" value="{{ intervention['user_id'] }}">
-        </div>
-        <div class="form-group">
-            <label for="id_standardiste">Standardiste:</label>
-            <select class="form-control" id="id_standardiste" name="id_standardiste">
-                {% for standardiste in standardistes %}
-                    <option value="{{ standardiste['user_id'] }}">{{ standardiste['name'] }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="id_intervenant">Intervenant:</label>
-            <select class="form-control" id="id_intervenant" name="id_intervenant">
-                {% for intervenant in intervenants %}
-                    <option value="{{ intervenant['user_id'] }}">{{ intervenant['name'] }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Modifier</button>
+        <button type="submit" class="btn btn-success" style="text-align:center;">Modifier</button>
     </form>
+</div>
+
+
+
+<div id="pleine-largeur">
+    <!-- Contenu du div -->
 </div>
 
 {% endblock %}

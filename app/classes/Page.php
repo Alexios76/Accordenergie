@@ -162,5 +162,22 @@ public function getAllStatusTypes(){
     return $statusTypes;
 }
 
+public function getUserById($user_id)
+{
+    $sql = "SELECT * FROM user WHERE user_id = :user_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['user_id' => $user_id]);
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
+
+public function updateUser(array $data)
+{
+    $sql = "UPDATE user SET email = :email, name = :name, surname = :surname, phone_number = :phone_number WHERE user_id = :user_id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute($data);
+}
+
+
+
 
 }
